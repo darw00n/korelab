@@ -4,6 +4,19 @@
 // ============================================
 
 // ===================
+// DATABASE TYPE (pour Supabase client)
+// ===================
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Database {
+  public: {
+    Tables: Record<string, unknown>;
+    Views: Record<string, unknown>;
+    Functions: Record<string, unknown>;
+  };
+}
+
+// ===================
 // ENUMS
 // ===================
 

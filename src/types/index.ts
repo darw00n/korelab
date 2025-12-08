@@ -5,6 +5,9 @@
 // Re-export des types database
 export * from './database.types';
 
+// Import Product for local use
+import type { Product } from './database.types';
+
 // ===================
 // DIAGNOSTIC WIZARD
 // ===================
@@ -119,6 +122,33 @@ export interface ScienceCard {
   content: string;
   imageUrl?: string;
   productSlug?: string; // Lien vers le produit concerné
+}
+
+// ===================
+// CART
+// ===================
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+export interface PromoCode {
+  code: string;
+  discount_type: 'percentage' | 'fixed';
+  discount_value: number;
+  minimum_order: number;
+  expires_at?: string;
+}
+
+// Legacy type for old skin care routine (kept for cart compatibility)
+export interface RoutineRecommendation {
+  cleanser?: Product;
+  activeIngredient?: Product;
+  oil?: Product;
+  totalPrice: number;
+  discountedPrice: number;
+  matchScore: number;
 }
 
 // ===================

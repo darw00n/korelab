@@ -50,12 +50,15 @@ export const LOCALES: Record<Locale, LocaleConfig> = {
   },
 };
 
-// Dictionnaires de traduction
-export const translations: Record<Locale, typeof fr> = {
+// Type pour les traductions (utilise le français comme base)
+export type Dictionary = typeof fr;
+
+// Dictionnaires de traduction (avec fallback vers français pour les clés manquantes)
+export const translations: Record<Locale, Dictionary> = {
   fr,
-  en: en as typeof fr,
-  ma: darija as typeof fr,
-  tz: amazigh as typeof fr,
+  en: en as unknown as Dictionary,
+  ma: darija as unknown as Dictionary,
+  tz: amazigh as unknown as Dictionary,
 };
 
 // Langue par défaut
