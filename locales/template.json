@@ -1,0 +1,615 @@
+{
+  "meta": {
+    "language": "fr",
+    "languageName": "Français",
+    "direction": "ltr"
+  },
+
+  "common": {
+    "appName": "Korelab",
+    "tagline": "Cosmétique Naturelle Marocaine",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "continue": "Continuer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non",
+    "or": "ou",
+    "and": "et",
+    "free": "Gratuit",
+    "new": "Nouveau",
+    "popular": "Populaire",
+    "recommended": "Recommandé",
+    "seeMore": "Voir plus",
+    "seeAll": "Voir tout",
+    "learnMore": "En savoir plus"
+  },
+
+  "navigation": {
+    "home": "Accueil",
+    "diagnostic": "Diagnostic",
+    "products": "Produits",
+    "cart": "Panier",
+    "account": "Compte",
+    "menu": "Menu"
+  },
+
+  "header": {
+    "logo": "Korelab",
+    "search": "Rechercher",
+    "cartIcon": "Panier"
+  },
+
+  "footer": {
+    "copyright": "© 2024 Korelab. Tous droits réservés.",
+    "madeWith": "Fait avec ❤️ au Maroc",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation",
+    "contact": "Contact"
+  },
+
+  "home": {
+    "hero": {
+      "title": "Ta routine beauté personnalisée",
+      "subtitle": "Découvre les secrets de beauté marocains adaptés à tes cheveux",
+      "cta": "Faire le diagnostic"
+    },
+    "features": {
+      "title": "Pourquoi Korelab ?",
+      "natural": {
+        "title": "100% Naturel",
+        "description": "Produits issus de l'agriculture marocaine"
+      },
+      "personalized": {
+        "title": "Personnalisé",
+        "description": "Routine adaptée à ton profil capillaire"
+      },
+      "expert": {
+        "title": "Expert",
+        "description": "Conseils basés sur la science du cheveu"
+      }
+    },
+    "testimonials": {
+      "title": "Ils nous font confiance"
+    },
+    "cta": {
+      "title": "Prête à transformer tes cheveux ?",
+      "button": "Commencer le diagnostic"
+    }
+  },
+
+  "diagnostic": {
+    "title": "Diagnostic Capillaire",
+    "subtitle": "Découvre ta routine sur-mesure en 4 questions",
+    
+    "progress": {
+      "step": "Étape",
+      "of": "sur",
+      "percent": "%"
+    },
+
+    "intro": {
+      "title": "Diagnostic Capillaire",
+      "subtitle": "Découvre ta routine sur-mesure en",
+      "questionsCount": "4 questions",
+      "features": {
+        "time": "30 secondes chrono",
+        "natural": "Produits 100% naturels",
+        "personalized": "Routine personnalisée"
+      },
+      "cta": "C'est parti !",
+      "legal": "Gratuit • Sans engagement • Résultats immédiats"
+    },
+
+    "texture": {
+      "title": "Quelle est ta texture ?",
+      "subtitle": "Observe tes cheveux naturels (sans produit)",
+      "types": {
+        "straight": {
+          "name": "Lisse (Type 1)",
+          "description": "Cheveux raides, sans ondulation naturelle"
+        },
+        "wavy": {
+          "name": "Ondulé (Type 2)",
+          "description": "Cheveux formant des vagues en S"
+        },
+        "curly": {
+          "name": "Bouclé (Type 3)",
+          "description": "Boucles définies en spirales"
+        },
+        "coily": {
+          "name": "Frisé / Crépu (Type 4)",
+          "description": "Boucles très serrées en Z, cheveux afro"
+        }
+      },
+      "helper": "Type 1 = Lisse • Type 2 = Ondulé • Type 3 = Bouclé • Type 4 = Crépu"
+    },
+
+    "scalp": {
+      "title": "Ton cuir chevelu",
+      "subtitle": "Comment se sent-il 2 jours après un shampoing ?",
+      "question": "Comment sont mes racines au réveil le 2ème jour ?",
+      "types": {
+        "dry": {
+          "name": "Cuir Chevelu Sec",
+          "description": "Sec, ça gratte parfois"
+        },
+        "oily": {
+          "name": "Cuir Chevelu Gras",
+          "description": "Gras, lourd à la racine"
+        },
+        "normal": {
+          "name": "Cuir Chevelu Normal",
+          "description": "Normal, confortable"
+        },
+        "sensitive": {
+          "name": "Cuir Chevelu Sensible",
+          "description": "Sensible, irrité"
+        }
+      }
+    },
+
+    "porosity": {
+      "title": "Ta porosité",
+      "subtitle": "C'est la capacité de tes cheveux à absorber l'eau",
+      "helpButton": "Comment savoir ma porosité ?",
+      "types": {
+        "low": {
+          "name": "Porosité Faible",
+          "testResult": "Le cheveu flotte",
+          "description": "Cuticules fermées - Le cheveu repousse l'eau, les produits restent en surface",
+          "careTip": "Privilégier les huiles légères (Pépins de Raisin, Argan). Éviter les beurres lourds."
+        },
+        "medium": {
+          "name": "Porosité Moyenne",
+          "testResult": "Le cheveu flotte au milieu",
+          "description": "Cuticules normales - Absorption et rétention équilibrées",
+          "careTip": "Vous pouvez utiliser la plupart des produits. Routine LOC classique."
+        },
+        "high": {
+          "name": "Porosité Forte",
+          "testResult": "Le cheveu coule",
+          "description": "Cuticules ouvertes/endommagées - Absorbe vite mais perd l'hydratation",
+          "careTip": "Besoin de protéines et de scellage fort (Karité, Avocat). Éviter les humectants seuls."
+        }
+      },
+      "test": {
+        "title": "Le Test du Verre d'Eau",
+        "step1": "Prends un cheveu propre (sans produit) tombé naturellement",
+        "step2": "Dépose-le dans un verre d'eau à température ambiante",
+        "step3": "Attends 2-4 minutes et observe où il se trouve",
+        "results": {
+          "floats": "Flotte = Porosité Faible",
+          "floatsDescription": "Les cuticules sont fermées",
+          "middle": "Milieu = Porosité Moyenne",
+          "middleDescription": "Équilibre parfait",
+          "sinks": "Coule = Porosité Forte",
+          "sinksDescription": "Les cuticules sont ouvertes"
+        },
+        "understood": "J'ai compris !"
+      }
+    },
+
+    "concerns": {
+      "title": "Tes préoccupations",
+      "subtitle": "Sélectionne ce que tu veux améliorer",
+      "selectedCount": "préoccupation(s) sélectionnée(s)",
+      "helper": "Plus tu sélectionnes, plus ta routine sera complète",
+      "cta": "Voir ma routine",
+      "types": {
+        "hairLoss": {
+          "name": "Chute de Cheveux",
+          "shortName": "Chute",
+          "description": "Perte excessive, alopécie, cheveux clairsemés"
+        },
+        "dandruff": {
+          "name": "Pellicules",
+          "shortName": "Pellicules",
+          "description": "Squames blanches, démangeaisons du cuir chevelu"
+        },
+        "breakage": {
+          "name": "Casse & Fragilité",
+          "shortName": "Casse",
+          "description": "Cheveux qui se cassent, pointes fourchues"
+        },
+        "slowGrowth": {
+          "name": "Pousse Lente",
+          "shortName": "Pousse",
+          "description": "Cheveux qui stagnent, croissance ralentie"
+        },
+        "dryness": {
+          "name": "Sécheresse",
+          "shortName": "Sécheresse",
+          "description": "Cheveux secs, ternes, manque d'hydratation"
+        },
+        "frizz": {
+          "name": "Frisottis",
+          "shortName": "Frisottis",
+          "description": "Cheveux gonflés, manque de définition"
+        },
+        "volume": {
+          "name": "Manque de Volume",
+          "shortName": "Volume",
+          "description": "Cheveux plats, sans corps"
+        },
+        "shine": {
+          "name": "Manque de Brillance",
+          "shortName": "Brillance",
+          "description": "Cheveux ternes, sans éclat"
+        }
+      }
+    },
+
+    "loading": {
+      "title": "L'IA analyse tes cheveux...",
+      "steps": {
+        "texture": "Analyse de ta texture...",
+        "porosity": "Évaluation de ta porosité...",
+        "actives": "Sélection des actifs...",
+        "routine": "Création de ta routine..."
+      }
+    }
+  },
+
+  "results": {
+    "matchBadge": "Match à",
+    "title": "Voici ta routine parfaite",
+    "subtitle": "Sélectionnée spécialement pour ta peau",
+    "forHair": "Pour cheveux",
+    "porosity": "Porosité",
+    
+    "steps": {
+      "cleanse": {
+        "number": "1",
+        "label": "LAVER",
+        "labelEn": "CLEANSE",
+        "description": "Nettoyer le cuir chevelu"
+      },
+      "treat": {
+        "number": "2",
+        "label": "TRAITER",
+        "labelEn": "TREAT",
+        "description": "Cibler les problèmes"
+      },
+      "seal": {
+        "number": "3",
+        "label": "SCELLER",
+        "labelEn": "SEAL",
+        "description": "Retenir l'hydratation"
+      }
+    },
+
+    "product": {
+      "why": "Pourquoi ce produit",
+      "expertNote": "Note d'expert",
+      "usage": "Mode d'emploi"
+    },
+
+    "science": {
+      "title": "Comprendre tes cheveux",
+      "analysisTitle": "L'analyse de notre IA",
+      "porosity": {
+        "lowTitle": "Écailles Fermées",
+        "lowExplanation": "Tes cuticules sont très serrées. L'eau et les produits ont du mal à pénétrer, mais une fois hydratés, tes cheveux retiennent bien.",
+        "lowAction": "Utiliser des huiles légères (Argan, Pépins de Raisin) qui ne bouchent pas les écailles.",
+        "mediumTitle": "Équilibre Parfait",
+        "mediumExplanation": "Tes cuticules s'ouvrent et se ferment normalement. Tu absorbes bien les soins et tu retiens l'hydratation.",
+        "mediumAction": "La routine LOC/LCO classique fonctionne parfaitement pour toi.",
+        "highTitle": "Écailles Ouvertes",
+        "highExplanation": "Tes cuticules sont très ouvertes (souvent dû à des dommages). Tu absorbes vite mais tu perds l'hydratation rapidement.",
+        "highAction": "Besoin de protéines pour combler les brèches et de scellants lourds (Karité, Avocat) pour retenir."
+      },
+      "texture": {
+        "straight": "Les cheveux lisses ont tendance à devenir gras plus vite. Évite les produits trop riches en racines.",
+        "wavy": "Les ondulations aiment la légèreté. Utilise des produits qui définissent sans alourdir.",
+        "curly": "Les boucles ont besoin d'hydratation constante. La méthode LOC (Liquid, Oil, Cream) est ton alliée.",
+        "coily": "Les cheveux crépus sont naturellement plus secs. Le scellage est crucial pour retenir l'hydratation."
+      },
+      "actives": {
+        "hairLoss": "L'huile de Ricin stimule la microcirculation du cuir chevelu et renforce les follicules. Combinée au Romarin, elle favorise une pousse plus dense.",
+        "dandruff": "La Nigelle (Habba Sawda) possède des propriétés antifongiques naturelles qui assainissent le cuir chevelu et réduisent les pellicules.",
+        "breakage": "Les protéines comblent les brèches dans la fibre capillaire endommagée, renforçant le cheveu de l'intérieur.",
+        "dryness": "L'huile d'Avocat est l'une des rares huiles capables de PÉNÉTRER la fibre capillaire pour une hydratation profonde.",
+        "slowGrowth": "Le Romarin augmente le flux sanguin vers les follicules, accélérant la phase de croissance (anagène) du cheveu."
+      },
+      "locMethod": {
+        "title": "Ta méthode recommandée",
+        "loc": "LOC",
+        "lco": "LCO",
+        "liquid": "Liquid (Eau)",
+        "oil": "Oil (Huile)",
+        "cream": "Cream (Crème)",
+        "tipLow": "Avec ta porosité, l'huile aide les produits à mieux pénétrer.",
+        "tipHigh": "Avec une porosité forte, applique l'huile EN DERNIER pour sceller l'hydratation."
+      }
+    },
+
+    "footer": {
+      "totalLabel": "Total de la routine",
+      "discount": "Économie",
+      "addToCart": "Ajouter au panier",
+      "discountPercent": "-10%"
+    }
+  },
+
+  "products": {
+    "pageTitle": "Nos Produits",
+    "filters": {
+      "all": "Tous",
+      "cleansers": "Lavants",
+      "treatments": "Traitements",
+      "finishes": "Finitions",
+      "byTexture": "Par texture",
+      "byPorosity": "Par porosité",
+      "byConcern": "Par préoccupation"
+    },
+    "sort": {
+      "label": "Trier par",
+      "popular": "Populaire",
+      "priceLow": "Prix croissant",
+      "priceHigh": "Prix décroissant",
+      "newest": "Nouveautés"
+    },
+    "card": {
+      "addToCart": "Ajouter",
+      "outOfStock": "Rupture de stock",
+      "inStock": "En stock"
+    },
+    "details": {
+      "description": "Description",
+      "ingredients": "Ingrédients",
+      "howToUse": "Mode d'emploi",
+      "expertNote": "Note d'expert",
+      "reviews": "Avis clients",
+      "relatedProducts": "Produits similaires"
+    }
+  },
+
+  "productsList": {
+    "ghassoul": {
+      "name": "Ghassoul de l'Atlas Pur",
+      "shortDescription": "Argile lavante purifiante - Volume & Détox",
+      "description": "Argile minérale 100% naturelle des montagnes de l'Atlas marocain. Utilisée depuis des siècles dans les hammams, elle nettoie en profondeur le cuir chevelu et absorbe l'excès de sébum sans agresser. Apporte volume et légèreté aux cheveux.",
+      "usage": "Mélanger 2-3 cuillères avec de l'eau tiède jusqu'à obtenir une pâte. Appliquer sur cuir chevelu humide, masser 5 min, rincer abondamment.",
+      "expertNote": "Idéal pour espacer les shampoings. Attention aux cheveux très secs ou à faible porosité (peut assécher)."
+    },
+    "shampooBase": {
+      "name": "Shampoing Base Neutre Douce",
+      "shortDescription": "Nettoyant doux quotidien - Cuirs chevelus sensibles",
+      "description": "Base lavante ultra-douce sans sulfates agressifs, formulée pour les cuirs chevelus sensibles et les lavages fréquents. pH équilibré, respecte le film hydrolipidique. Convient à tous types de cheveux.",
+      "usage": "Appliquer sur cheveux mouillés, masser délicatement le cuir chevelu, rincer. Répéter si nécessaire.",
+      "expertNote": "La base parfaite pour tous. Peut être enrichie avec des actifs (HE Romarin pour chute, Tea Tree pour pellicules)."
+    },
+    "castorOil": {
+      "name": "Huile de Ricin Pure (Castor Oil)",
+      "shortDescription": "L'huile de la pousse - Fortifie et stimule",
+      "description": "Huile de Ricin 100% pure, pressée à froid. Reconnue mondialement pour stimuler la pousse des cheveux et renforcer les follicules. Riche en acide ricinoléique aux propriétés fortifiantes exceptionnelles.",
+      "usage": "En bain d'huile : appliquer sur le cuir chevelu et les longueurs, masser 10 min, laisser poser 1h minimum (ou toute la nuit), puis laver.",
+      "expertNote": "ATTENTION : Huile très épaisse ! Toujours utiliser en bain d'huile avant shampoing, jamais en leave-in. Peut alourdir les cheveux fins."
+    },
+    "nigellaOil": {
+      "name": "Huile de Nigelle (Habba Sawda)",
+      "shortDescription": "La graine bénie - Anti-pelliculaire & Apaisant",
+      "description": "L'huile de \"graine bénie\" (Black Seed Oil), utilisée depuis l'Antiquité pour ses propriétés purifiantes et apaisantes. Riche en Thymoquinone, elle assainit le cuir chevelu et combat les pellicules.",
+      "usage": "En massage cuir chevelu : quelques gouttes, masser 5 min avant le shampoing. Peut être ajoutée au shampoing (3-4 gouttes).",
+      "expertNote": "Excellente pour les cuirs chevelus irrités et les pellicules. Odeur caractéristique épicée."
+    },
+    "arganOil": {
+      "name": "Huile d'Argan Bio Pure",
+      "shortDescription": "L'or du Maroc - Brillance universelle",
+      "description": "L'or liquide du Maroc, extraite à froid des noix d'arganier de la région de Souss-Massa. Riche en Vitamine E et acides gras essentiels. Apporte brillance, nutrition et protection sans alourdir.",
+      "usage": "En finition : 2-3 gouttes sur cheveux humides ou secs, sur les longueurs et pointes. En bain d'huile : appliquer généreusement, poser 30 min.",
+      "expertNote": "Huile universelle qui convient à tous les types. Légère, pénètre bien. Le must-have marocain."
+    },
+    "grapeseedOil": {
+      "name": "Huile de Pépins de Raisin",
+      "shortDescription": "L'huile des cheveux fins - Ultra-légère",
+      "description": "Huile ultra-légère, idéale pour les cheveux fins qui craignent l'alourdissement. Riche en polyphénols antioxydants. Pénètre rapidement sans laisser de film gras. Parfaite pour la porosité faible.",
+      "usage": "En finition quotidienne : 2-4 gouttes sur longueurs humides. En sérum de jour sur cheveux secs.",
+      "expertNote": "LE choix pour les cheveux fins ou à faible porosité. Ne bouche pas les cuticules, n'alourdit jamais."
+    },
+    "avocadoOil": {
+      "name": "Huile d'Avocat Pure",
+      "shortDescription": "L'huile pénétrante - Nutrition profonde",
+      "description": "Huile pénétrante par excellence, capable de traverser la cuticule pour nourrir le cortex du cheveu. Riche en vitamines A, D, E et acides gras. Idéale pour les cheveux très poreux ou abîmés.",
+      "usage": "En bain d'huile : appliquer sur cheveux secs, couvrir d'un bonnet, laisser 1-2h ou toute la nuit. En masque : mélanger avec Karité.",
+      "expertNote": "Une des rares huiles qui PÉNÈTRE vraiment le cheveu. Parfaite pour reconstruire les cheveux poreux/abîmés."
+    },
+    "sheaButter": {
+      "name": "Beurre de Karité Brut Non Raffiné",
+      "shortDescription": "Le scellant ultime - Cheveux crépus & poreux",
+      "description": "Beurre de Karité pur du Burkina Faso, non raffiné pour conserver tous ses actifs. Le scellant ultime pour les cheveux crépus et très poreux. Forme un film protecteur qui retient l'hydratation.",
+      "usage": "Faire fondre une noisette entre les mains, appliquer sur cheveux humides en scellant après un leave-in hydratant. Pour les pointes : petite quantité sur pointes sèches.",
+      "expertNote": "INTERDIT sur cheveux fins ou porosité faible (effet carton garanti). Réservé aux textures 3C-4C et haute porosité."
+    },
+    "aloeGel": {
+      "name": "Gel d'Aloe Vera Natif 99%",
+      "shortDescription": "L'hydratant universel - Définition & Apaisement",
+      "description": "Gel d'Aloe Vera pur à 99%, cultivé au Maroc. Hydratant puissant qui ne laisse pas de résidus. Apaise le cuir chevelu, définit les boucles, et sert de base pour les soins DIY.",
+      "usage": "En leave-in : appliquer sur cheveux humides avant huile/beurre. En gel coiffant : appliquer et scruncher les boucles. Sur cuir chevelu : masser pour apaiser.",
+      "expertNote": "Le \"L\" de la méthode LOC/LCO. Hydrate sans alourdir. Base parfaite avant scellage."
+    },
+    "silkProteins": {
+      "name": "Protéines de Soie Hydrolysées",
+      "shortDescription": "Réparateur intense - Anti-casse",
+      "description": "Actif concentré de protéines de soie hydrolysées. Renforce la fibre capillaire, comble les brèches dans les cheveux poreux, réduit la casse. Apporte brillance et toucher soyeux.",
+      "usage": "Ajouter 5-10 gouttes à votre masque ou après-shampoing. Ne pas utiliser plus d'1x/semaine pour éviter l'excès de protéines.",
+      "expertNote": "Indispensable pour les cheveux cassants ou très poreux. Attention au \"protein overload\" : alterner avec soins hydratants."
+    },
+    "rosemaryEO": {
+      "name": "Huile Essentielle de Romarin à Cinéole",
+      "shortDescription": "Le booster de pousse - Stimulant capillaire",
+      "description": "Huile essentielle de Romarin reconnue scientifiquement pour stimuler la microcirculation du cuir chevelu et favoriser la pousse. Études cliniques comparables au Minoxidil.",
+      "usage": "JAMAIS PURE ! Diluer 3-5 gouttes dans 30ml d'huile de Ricin ou Argan. Masser le cuir chevelu 2-3x/semaine.",
+      "expertNote": "L'actif anti-chute naturel le plus étudié. À combiner avec Ricin pour effet synergique sur la pousse."
+    }
+  },
+
+  "cart": {
+    "title": "Mon Panier",
+    "empty": {
+      "title": "Ton panier est vide",
+      "subtitle": "Découvre nos produits ou fais le diagnostic",
+      "cta": "Faire le diagnostic"
+    },
+    "item": {
+      "remove": "Supprimer",
+      "quantity": "Quantité"
+    },
+    "summary": {
+      "subtotal": "Sous-total",
+      "discount": "Réduction",
+      "shipping": "Livraison",
+      "shippingFree": "GRATUITE",
+      "total": "Total"
+    },
+    "promoCode": {
+      "label": "Code promo",
+      "placeholder": "Entrer le code",
+      "apply": "Appliquer",
+      "applied": "Code appliqué !",
+      "invalid": "Code invalide"
+    },
+    "checkout": "Commander"
+  },
+
+  "checkout": {
+    "title": "Finaliser la commande",
+    "shipping": {
+      "title": "Informations de livraison",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "phone": "Téléphone",
+      "address": "Adresse",
+      "city": "Ville",
+      "postalCode": "Code postal"
+    },
+    "payment": {
+      "title": "Mode de paiement",
+      "cod": "Paiement à la livraison (COD)",
+      "codDescription": "Payez en espèces à la réception",
+      "card": "Carte bancaire",
+      "cardComingSoon": "Bientôt disponible"
+    },
+    "summary": {
+      "title": "Récapitulatif",
+      "items": "articles"
+    },
+    "confirm": "Confirmer la commande",
+    "processing": "Traitement en cours..."
+  },
+
+  "orderConfirmation": {
+    "title": "Commande confirmée !",
+    "subtitle": "Merci pour ta commande",
+    "orderNumber": "Numéro de commande",
+    "email": "Un email de confirmation a été envoyé",
+    "delivery": "Livraison estimée",
+    "days": "jours ouvrables",
+    "cta": "Suivre ma commande"
+  },
+
+  "account": {
+    "title": "Mon Compte",
+    "greeting": "Bonjour",
+    "menu": {
+      "orders": "Mes commandes",
+      "routine": "Ma routine sauvegardée",
+      "profile": "Mon profil capillaire",
+      "settings": "Paramètres",
+      "help": "Aide & Contact"
+    },
+    "logout": "Se déconnecter",
+    "login": {
+      "title": "Connexion",
+      "email": "Email",
+      "password": "Mot de passe",
+      "forgot": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "noAccount": "Pas encore de compte ?",
+      "register": "Créer un compte"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Créer mon compte",
+      "hasAccount": "Déjà un compte ?",
+      "login": "Se connecter"
+    }
+  },
+
+  "categories": {
+    "cleansers": {
+      "name": "Lavants",
+      "description": "Shampoings et nettoyants capillaires"
+    },
+    "oils": {
+      "name": "Huiles Végétales",
+      "description": "Huiles pures pour soins et scellage"
+    },
+    "butters": {
+      "name": "Beurres & Scellants",
+      "description": "Beurres nourrissants et scellants"
+    },
+    "actives": {
+      "name": "Actifs & Boosters",
+      "description": "Actifs concentrés et huiles essentielles"
+    },
+    "styling": {
+      "name": "Styling & Finish",
+      "description": "Gels et produits coiffants"
+    }
+  },
+
+  "errors": {
+    "generic": "Une erreur est survenue",
+    "network": "Erreur de connexion",
+    "notFound": "Page non trouvée",
+    "serverError": "Erreur serveur",
+    "validationEmail": "Email invalide",
+    "validationPhone": "Numéro de téléphone invalide",
+    "validationRequired": "Ce champ est requis",
+    "cartEmpty": "Ton panier est vide",
+    "outOfStock": "Ce produit n'est plus disponible",
+    "promoExpired": "Ce code promo a expiré",
+    "promoInvalid": "Code promo invalide"
+  },
+
+  "success": {
+    "addedToCart": "Ajouté au panier",
+    "orderPlaced": "Commande passée avec succès",
+    "profileSaved": "Profil sauvegardé",
+    "promoApplied": "Code promo appliqué"
+  },
+
+  "units": {
+    "currency": "MAD",
+    "currencySymbol": "DH",
+    "ml": "ml",
+    "g": "g",
+    "pieces": "pièces"
+  },
+
+  "seo": {
+    "homeTitle": "Korelab - Cosmétique Naturelle Marocaine",
+    "homeDescription": "Découvre ta routine capillaire personnalisée avec des produits naturels marocains. Diagnostic IA gratuit.",
+    "diagnosticTitle": "Diagnostic Capillaire - Korelab",
+    "diagnosticDescription": "Fais le diagnostic de tes cheveux en 30 secondes et obtiens une routine sur-mesure.",
+    "productsTitle": "Produits Capillaires Naturels - Korelab",
+    "productsDescription": "Huile d'Argan, Ghassoul, Huile de Nigelle... Découvre nos produits 100% naturels du Maroc.",
+    "cartTitle": "Mon Panier - Korelab",
+    "accountTitle": "Mon Compte - Korelab"
+  }
+}
+

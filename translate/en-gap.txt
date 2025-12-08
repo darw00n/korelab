@@ -1,0 +1,168 @@
+{
+  "home_page": {
+    "hero": {
+      "badge": "100% Natural & Moroccan",
+      "title_line1": "Natural beauty",
+      "title_line2": "tailored for you",
+      "description": "Discover your personalized routine with our AI diagnostic in 30 seconds.",
+      "cta_button": "Get my free diagnostic",
+      "stats": {
+        "tiktok_label": "TikTok Followers",
+        "rating_label": "Average Rating",
+        "clients_label": "Happy Clients"
+      }
+    },
+    "features": {
+      "natural_title": "100% Natural",
+      "natural_description": "Pure ingredients from Morocco",
+      "shipping_title": "Fast Shipping",
+      "shipping_description": "All over Morocco",
+      "guarantee_title": "Satisfaction Guaranteed",
+      "guarantee_description": "30-day money-back"
+    },
+    "testimonials": {
+      "section_title": "What our clients say ❤️",
+      "testimonial_1": {
+        "name": "Fatima Z.",
+        "city": "Casablanca",
+        "text": "The prickly pear oil transformed my skin! The wrinkles around my eyes have really diminished. Thank you Korelab 💕"
+      },
+      "testimonial_2": {
+        "name": "Sara M.",
+        "city": "Rabat",
+        "text": "Finally natural products that work! The diagnostic recommended exactly what I needed."
+      },
+      "video_cta": "Watch our TikTok videos"
+    },
+    "final_cta": {
+      "title": "Ready to discover your routine?",
+      "subtitle": "30 seconds for a transformation",
+      "button": "Start diagnostic"
+    }
+  },
+  "cart_page": {
+    "header_title": "My Cart",
+    "empty_state": {
+      "title": "Your cart is empty",
+      "description": "Discover your personalized routine with our AI diagnostic",
+      "cta_button": "Start diagnostic"
+    },
+    "diagnostic_badge": "Hair-Match Routine • -10% applied",
+    "shipping_info": {
+      "free_shipping": "🎉 Free Shipping!",
+      "remaining_for_free": "Only {amount} MAD left for free shipping"
+    },
+    "summary": {
+      "subtotal": "Subtotal ({count} items)",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "free": "Free",
+      "total": "Total"
+    },
+    "buttons": {
+      "order": "Checkout"
+    }
+  },
+  "account_page": {
+    "header_title": "My Account",
+    "welcome": {
+      "title": "Welcome!",
+      "subtitle": "Log in to view your orders"
+    },
+    "menu": {
+      "my_info": "My Information",
+      "settings": "Settings",
+      "help": "Help & Contact"
+    },
+    "info_message": "Login coming soon! For now, order via WhatsApp or Cash on Delivery."
+  },
+  "routine_reveal": {
+    "header": {
+      "title": "Here is your perfect routine ✨",
+      "for_hair": "For {texture} hair (Type {type})",
+      "porosity_label": "Porosity {level}"
+    },
+    "steps": {
+      "step_prefix": "STEP",
+      "cleanse": "CLEANSE",
+      "treat": "TREAT",
+      "seal": "SEAL"
+    },
+    "product_card": {
+      "match_score": "Ideal for {attribute}",
+      "targets": "Targets: {concern}",
+      "why_badge": "Why?"
+    },
+    "total_section": {
+      "total_label": "Routine Total",
+      "discount_info": "-10% on full routines",
+      "add_to_cart": "Add full routine"
+    },
+    "method_section": {
+      "title": "Your recommended method: {method}",
+      "loc": {
+        "step1": "Liquid (Water)",
+        "step2": "Oil",
+        "step3": "Cream"
+      },
+      "lco": {
+        "step1": "Liquid (Water)",
+        "step2": "Cream",
+        "step3": "Oil"
+      },
+      "porosity_tip": "💡 With your porosity, {tip}"
+    }
+  },
+  "science_explainer": {
+    "title": "Understand your hair",
+    "ai_analysis": "⚖️ Our AI Analysis",
+    "porosity_section": {
+      "title": "Your Porosity: {level}",
+      "low": "Your cuticles are tightly closed. Hydration has trouble penetrating. You need light products like {product}.",
+      "medium": "Your cuticles open and close normally. You absorb and retain moisture well. The classic LOC/LCO routine works perfectly for you.",
+      "high": "Your cuticles are open. Moisture escapes easily. {product} will act as cement to seal it in."
+    },
+    "texture_section": {
+      "title": "∿ Our AI Analysis\nYour Texture: {texture}",
+      "type_label": "(Type {type})"
+    },
+    "active_section": {
+      "title": "🎯 Our AI Analysis\nTargeted Active: {concern}"
+    }
+  },
+  "language_selector": {
+    "aria_label": "Switch language"
+  },
+  "product_types": {
+    "cleanser": "Cleanser",
+    "treatment": "Treatment",
+    "finish": "Finish"
+  },
+  "hair_textures": {
+    "straight": "Straight",
+    "wavy": "Wavy",
+    "curly": "Curly",
+    "coily": "Coily/Kinky"
+  },
+  "scalp_types": {
+    "oily": "Oily",
+    "dry": "Dry",
+    "normal": "Normal",
+    "sensitive": "Sensitive"
+  },
+  "porosity_levels": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High"
+  },
+  "concerns": {
+    "hair_loss": "Hair Loss",
+    "dandruff": "Dandruff",
+    "breakage": "Breakage",
+    "slow_growth": "Slow Growth",
+    "dryness": "Dryness",
+    "frizz": "Frizz",
+    "volume": "Volume",
+    "shine": "Shine"
+  }
+}

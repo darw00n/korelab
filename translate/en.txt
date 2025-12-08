@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "language": "en",
+    "languageName": "English",
+    "direction": "ltr"
+  },
+  "common": {
+    "appName": "Korelab",
+    "tagline": "Moroccan Natural Cosmetics",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "free": "Free",
+    "new": "New",
+    "popular": "Popular",
+    "recommended": "Recommended",
+    "seeMore": "See more",
+    "seeAll": "See all",
+    "learnMore": "Learn more"
+  },
+  "navigation": {
+    "home": "Home",
+    "diagnostic": "Diagnostic",
+    "products": "Products",
+    "cart": "Cart",
+    "account": "Account",
+    "menu": "Menu"
+  },
+  "header": {
+    "logo": "Korelab",
+    "search": "Search",
+    "cartIcon": "Cart"
+  },
+  "footer": {
+    "copyright": "© 2024 Korelab. All rights reserved.",
+    "madeWith": "Made with ❤️ in Morocco",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Your personalized beauty routine",
+      "subtitle": "Discover Moroccan beauty secrets tailored to your hair",
+      "cta": "Start Diagnostic"
+    },
+    "features": {
+      "title": "Why Korelab?",
+      "natural": {
+        "title": "100% Natural",
+        "description": "Sourced directly from Moroccan agriculture"
+      },
+      "personalized": {
+        "title": "Personalized",
+        "description": "Routine tailored to your hair profile"
+      },
+      "expert": {
+        "title": "Expert",
+        "description": "Advice based on hair science"
+      }
+    },
+    "testimonials": {
+      "title": "They trust us"
+    },
+    "cta": {
+      "title": "Ready to transform your hair?",
+      "button": "Start the diagnostic"
+    }
+  },
+  "diagnostic": {
+    "title": "Hair Diagnostic",
+    "subtitle": "Discover your custom routine in 4 questions",
+    "progress": {
+      "step": "Step",
+      "of": "of",
+      "percent": "%"
+    },
+    "intro": {
+      "title": "Hair Diagnostic",
+      "subtitle": "Discover your custom routine in",
+      "questionsCount": "4 questions",
+      "features": {
+        "time": "30 seconds flat",
+        "natural": "100% natural products",
+        "personalized": "Personalized routine"
+      },
+      "cta": "Let's go!",
+      "legal": "Free • No commitment • Instant results"
+    },
+    "texture": {
+      "title": "What is your texture?",
+      "subtitle": "Observe your natural hair (product-free)",
+      "types": {
+        "straight": {
+          "name": "Straight (Type 1)",
+          "description": "Straight hair, no natural wave"
+        },
+        "wavy": {
+          "name": "Wavy (Type 2)",
+          "description": "Hair forming S-shaped waves"
+        },
+        "curly": {
+          "name": "Curly (Type 3)",
+          "description": "Defined spiral curls"
+        },
+        "coily": {
+          "name": "Coily / Kinky (Type 4)",
+          "description": "Very tight Z-pattern curls, afro hair"
+        }
+      },
+      "helper": "Type 1 = Straight • Type 2 = Wavy • Type 3 = Curly • Type 4 = Coily"
+    },
+    "scalp": {
+      "title": "Your Scalp",
+      "subtitle": "How does it feel 2 days after washing?",
+      "question": "How are my roots when I wake up on day 2?",
+      "types": {
+        "dry": {
+          "name": "Dry Scalp",
+          "description": "Dry, sometimes itchy"
+        },
+        "oily": {
+          "name": "Oily Scalp",
+          "description": "Greasy, heavy at the roots"
+        },
+        "normal": {
+          "name": "Normal Scalp",
+          "description": "Normal, comfortable"
+        },
+        "sensitive": {
+          "name": "Sensitive Scalp",
+          "description": "Sensitive, irritated"
+        }
+      }
+    },
+    "porosity": {
+      "title": "Your Porosity",
+      "subtitle": "This is your hair's ability to absorb water",
+      "helpButton": "How do I know my porosity?",
+      "types": {
+        "low": {
+          "name": "Low Porosity",
+          "testResult": "Hair floats",
+          "description": "Closed cuticles - Hair repels water, products sit on top",
+          "careTip": "Prioritize light oils (Grapeseed, Argan). Avoid heavy butters."
+        },
+        "medium": {
+          "name": "Medium Porosity",
+          "testResult": "Hair floats in the middle",
+          "description": "Normal cuticles - Balanced absorption and retention",
+          "careTip": "You can use most products. Classic LOC routine."
+        },
+        "high": {
+          "name": "High Porosity",
+          "testResult": "Hair sinks",
+          "description": "Open/damaged cuticles - Absorbs fast but loses moisture quickly",
+          "careTip": "Needs protein and heavy sealing (Shea, Avocado). Avoid humectants alone."
+        }
+      },
+      "test": {
+        "title": "The Water Glass Test",
+        "step1": "Take a clean hair strand (product-free) that fell naturally",
+        "step2": "Place it in a glass of room temperature water",
+        "step3": "Wait 2-4 minutes and observe where it is",
+        "results": {
+          "floats": "Floats = Low Porosity",
+          "floatsDescription": "Cuticles are closed",
+          "middle": "Middle = Medium Porosity",
+          "middleDescription": "Perfect balance",
+          "sinks": "Sinks = High Porosity",
+          "sinksDescription": "Cuticles are open"
+        }
+      }
+    },
+    "concerns": {
+      "title": "Your Concerns",
+      "subtitle": "Select what you want to improve",
+      "selectedCount": "concern(s) selected",
+      "helper": "The more you select, the more complete your routine",
+      "cta": "See my routine",
+      "types": {
+        "hairLoss": {
+          "name": "Hair Loss",
+          "shortName": "Loss",
+          "description": "Excessive shedding, thinning hair"
+        },
+        "dandruff": {
+          "name": "Dandruff",
+          "shortName": "Dandruff",
+          "description": "White flakes, itchy scalp"
+        },
+        "breakage": {
+          "name": "Breakage & Fragility",
+          "shortName": "Breakage",
+          "description": "Hair snapping off, split ends"
+        },
+        "slowGrowth": {
+          "name": "Slow Growth",
+          "shortName": "Growth",
+          "description": "Stagnant length, slow growth"
+        },
+        "dryness": {
+          "name": "Dryness",
+          "shortName": "Dryness",
+          "description": "Dry, dull hair, lack of hydration"
+        },
+        "frizz": {
+          "name": "Frizz",
+          "shortName": "Frizz",
+          "description": "Puffy hair, lack of definition"
+        },
+        "volume": {
+          "name": "Lack of Volume",
+          "shortName": "Volume",
+          "description": "Flat hair, no body"
+        },
+        "shine": {
+          "name": "Lack of Shine",
+          "shortName": "Shine",
+          "description": "Dull hair, no luster"
+        }
+      }
+    },
+    "loading": {
+      "title": "AI is analyzing your hair...",
+      "steps": {
+        "texture": "Analyzing your texture...",
+        "porosity": "Evaluating your porosity...",
+        "actives": "Selecting active ingredients...",
+        "routine": "Creating your routine..."
+      }
+    }
+  },
+  "results": {
+    "matchBadge": "Match at",
+    "title": "Here is your perfect routine",
+    "subtitle": "Selected specifically for your hair",
+    "forHair": "For hair",
+    "porosity": "Porosity",
+    "steps": {
+      "cleanse": {
+        "number": "1",
+        "label": "CLEANSE",
+        "labelEn": "CLEANSE",
+        "description": "Cleanse the scalp"
+      },
+      "treat": {
+        "number": "2",
+        "label": "TREAT",
+        "labelEn": "TREAT",
+        "description": "Target specific issues"
+      },
+      "seal": {
+        "number": "3",
+        "label": "SEAL",
+        "labelEn": "SEAL",
+        "description": "Lock in moisture"
+      }
+    },
+    "science": {
+      "title": "Understand your hair",
+      "analysisTitle": "Our AI Analysis",
+      "porosity": {
+        "lowTitle": "Closed Cuticles",
+        "lowExplanation": "Your cuticles are tightly closed. Water and products have trouble getting in, but once hydrated, your hair holds it well.",
+        "lowAction": "Use light oils (Argan, Grapeseed) that don't block the cuticles.",
+        "mediumTitle": "Perfect Balance",
+        "mediumExplanation": "Your cuticles open and close normally. You absorb products well and retain moisture.",
+        "mediumAction": "The classic LOC/LCO routine works perfectly for you.",
+        "highTitle": "Open Cuticles",
+        "highExplanation": "Your cuticles are wide open (often due to damage). You absorb fast but lose moisture quickly.",
+        "highAction": "Need protein to fill gaps and heavy sealants (Shea, Avocado) to retain moisture."
+      },
+      "locMethod": {
+        "title": "Your recommended method",
+        "loc": "LOC",
+        "lco": "LCO",
+        "liquid": "Liquid (Water)",
+        "oil": "Oil",
+        "cream": "Cream",
+        "tipLow": "With your porosity, oil helps products penetrate better.",
+        "tipHigh": "With high porosity, apply oil LAST to seal in hydration."
+      }
+    },
+    "footer": {
+      "totalLabel": "Routine Total",
+      "discount": "Savings",
+      "addToCart": "Add to cart",
+      "discountPercent": "-10%"
+    }
+  },
+  "products": {
+    "pageTitle": "Our Products",
+    "filters": {
+      "all": "All",
+      "cleansers": "Cleansers",
+      "treatments": "Treatments",
+      "finishes": "Finishes",
+      "byTexture": "By Texture",
+      "byPorosity": "By Porosity",
+      "byConcern": "By Concern"
+    },
+    "card": {
+      "addToCart": "Add",
+      "outOfStock": "Out of stock",
+      "inStock": "In stock"
+    }
+  },
+  "cart": {
+    "title": "My Cart",
+    "empty": {
+      "title": "Your cart is empty",
+      "subtitle": "Discover our products or take the diagnostic",
+      "cta": "Take the diagnostic"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "shippingFree": "FREE",
+      "total": "Total"
+    },
+    "checkout": "Checkout"
+  },
+  "checkout": {
+    "title": "Finalize Order",
+    "shipping": {
+      "title": "Shipping Info",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phone": "Phone",
+      "address": "Address",
+      "city": "City",
+      "postalCode": "Postal Code"
+    },
+    "payment": {
+      "title": "Payment Method",
+      "cod": "Cash on Delivery (COD)",
+      "codDescription": "Pay in cash upon receipt",
+      "card": "Credit Card",
+      "cardComingSoon": "Coming Soon"
+    },
+    "confirm": "Confirm Order"
+  }
+}

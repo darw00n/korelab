@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   KORELAB - Global Styles
+   Mobile-First Design System
+   ============================================ */
+
+@layer base {
+  :root {
+    --background: 250 250 249; /* Stone-50 */
+    --foreground: 28 25 23; /* Stone-900 */
+    --primary: 180 83 9; /* Amber-700 */
+    --secondary: 120 113 108; /* Stone-500 */
+    --accent: 21 128 61; /* Green-700 */
+  }
+
+  * {
+    @apply border-secondary-200;
+  }
+
+  html {
+    @apply scroll-smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Optimisation Mobile */
+  input, textarea, select, button {
+    font-size: 16px; /* Évite le zoom sur iOS */
+  }
+}
+
+@layer components {
+  /* ============================================
+     BOUTONS
+     ============================================ */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-primary text-white font-semibold
+           px-6 py-3.5 rounded-lg
+           transition-all duration-200
+           hover:bg-primary-800 active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-secondary-100 text-secondary-800 font-medium
+           px-6 py-3.5 rounded-lg
+           transition-all duration-200
+           hover:bg-secondary-200 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           text-secondary-600 font-medium
+           px-4 py-2 rounded-lg
+           transition-all duration-200
+           hover:bg-secondary-100;
+  }
+
+  /* ============================================
+     CARTES SÉLECTIONNABLES (pour le Wizard)
+     ============================================ */
+  .selectable-card {
+    @apply relative p-4 rounded-xl border-2 border-secondary-200
+           bg-white cursor-pointer
+           transition-all duration-200
+           hover:border-primary-300 hover:shadow-card;
+  }
+
+  .selectable-card.selected {
+    @apply border-primary bg-primary-50 shadow-soft;
+  }
+
+  .selectable-card .check-indicator {
+    @apply absolute top-3 right-3 w-6 h-6 rounded-full
+           flex items-center justify-center
+           bg-primary text-white
+           opacity-0 scale-75 transition-all duration-200;
+  }
+
+  .selectable-card.selected .check-indicator {
+    @apply opacity-100 scale-100;
+  }
+
+  /* ============================================
+     BOTTOM NAVIGATION
+     ============================================ */
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 z-50
+           bg-white/95 backdrop-blur-lg
+           border-t border-secondary-200
+           px-2 pb-safe;
+  }
+
+  .bottom-nav-item {
+    @apply flex flex-col items-center justify-center
+           py-2 px-3 rounded-lg
+           text-secondary-500 text-xs font-medium
+           transition-all duration-200;
+  }
+
+  .bottom-nav-item.active {
+    @apply text-primary;
+  }
+
+  .bottom-nav-item .icon {
+    @apply w-6 h-6 mb-0.5;
+  }
+
+  /* ============================================
+     BARRE DE PROGRESSION
+     ============================================ */
+  .progress-bar {
+    @apply h-1.5 bg-secondary-200 rounded-full overflow-hidden;
+  }
+
+  .progress-bar-fill {
+    @apply h-full bg-primary rounded-full transition-all duration-500 ease-out;
+  }
+
+  /* ============================================
+     SAFE AREA (pour iPhone avec notch)
+     ============================================ */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  /* ============================================
+     ANIMATIONS PERSONNALISÉES
+     ============================================ */
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+@layer utilities {
+  /* Masquer scrollbar tout en gardant le scroll */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+}
+
