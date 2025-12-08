@@ -103,7 +103,7 @@ export function ScienceExplainer({ profile, products }: ScienceExplainerProps) {
       title: profile.concerns[0],
       subtitle: '',
       visual: '🎯',
-      content: getActiveExplanation(profile.concerns[0], products, t),
+      content: getActiveExplanation(profile.concerns[0], products),
       action: '',
       color: 'from-amber-500 to-orange-600',
     }] : []),
