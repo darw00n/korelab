@@ -15,8 +15,7 @@ import {
   ArrowRight,
   Play,
   Shield,
-  Truck,
-  Heart
+  Truck
 } from 'lucide-react';
 import { MobileShell } from '@/components/layout/MobileShell';
 import { useTranslation } from '@/lib/i18n/context';
@@ -109,11 +108,6 @@ function HeroSection() {
         className="flex items-center justify-center gap-6 mt-6"
       >
         <div className="text-center">
-          <p className="text-2xl font-bold text-secondary-900">350k+</p>
-          <p className="text-sm text-secondary-500">{t('home.hero.stats.tiktok_label')}</p>
-        </div>
-        <div className="w-px h-10 bg-secondary-200" />
-        <div className="text-center">
           <p className="text-2xl font-bold text-secondary-900">4.9</p>
           <p className="text-sm text-secondary-500">{t('home.hero.stats.rating_label')}</p>
         </div>
@@ -145,16 +139,11 @@ function FeaturesSection() {
       titleKey: 'home.features.shipping_title',
       descKey: 'home.features.shipping_description',
     },
-    {
-      icon: <Heart className="w-6 h-6" />,
-      titleKey: 'home.features.guarantee_title',
-      descKey: 'home.features.guarantee_description',
-    },
   ];
 
   return (
     <section className="mb-8">
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {features.map((feature, index) => (
           <motion.div
             key={feature.titleKey}
