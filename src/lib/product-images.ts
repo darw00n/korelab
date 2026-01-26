@@ -15,36 +15,36 @@ import type { Product } from '@/types/database.types';
  */
 const PRODUCT_IMAGE_MAP: Record<string, string> = {
   // Nettoyants
-  'ghassoul-atlas-pur': '/product-images/ghassoul.jpeg',
-  'shampoing-base-neutre': '/product-images/neutralphshampoo.jpeg',
+  'ghassoul-atlas-pur': '/product-images/ghassoul.webp',
+  'shampoing-base-neutre': '/product-images/neutralphshampoo.webp',
   
   // Traitements
-  'huile-ricin': '/product-images/Castoroil.jpeg',
-  'huile-nigelle': '/product-images/blackseedoil.jpeg',
-  'huile-avocat': '/product-images/avocado.jpeg',
-  'proteines-soie': '/product-images/silkprotein.jpeg',
-  'he-romarin': '/product-images/rosemary.jpeg',
+  'huile-ricin': '/product-images/Castoroil.webp',
+  'huile-nigelle': '/product-images/blackseedoil.webp',
+  'huile-avocat': '/product-images/avocado.webp',
+  'proteines-soie': '/product-images/silkprotein.webp',
+  'he-romarin': '/product-images/rosemary.webp',
   
   // Finitions
-  'huile-argan': '/product-images/argan.jpeg',
-  'huile-pepins-raisin': '/product-images/grapeseed.jpeg',
-  'beurre-karite': '/product-images/sheabutter.jpeg',
-  'gel-aloe-vera': '/product-images/aloeavera.jpeg',
+  'huile-argan': '/product-images/argan.webp',
+  'huile-pepins-raisin': '/product-images/grapeseed.webp',
+  'beurre-karite': '/product-images/sheabutter.webp',
+  'gel-aloe-vera': '/product-images/aloeavera.webp',
 };
 
 // Mapping par mots-clés dans le nom (fallback)
 const PRODUCT_NAME_KEYWORDS: Array<{ keywords: string[]; image: string }> = [
-  { keywords: ['ghassoul'], image: '/product-images/ghassoul.jpeg' },
-  { keywords: ['shampoing', 'neutre', 'base'], image: '/product-images/neutralphshampoo.jpeg' },
-  { keywords: ['ricin', 'castor'], image: '/product-images/Castoroil.jpeg' },
-  { keywords: ['nigelle', 'black seed', 'habba'], image: '/product-images/blackseedoil.jpeg' },
-  { keywords: ['avocat'], image: '/product-images/avocado.jpeg' },
-  { keywords: ['protéine', 'soie', 'silk'], image: '/product-images/silkprotein.jpeg' },
-  { keywords: ['romarin'], image: '/product-images/rosemary.jpeg' },
-  { keywords: ['argan'], image: '/product-images/argan.jpeg' },
-  { keywords: ['pépins', 'raisin', 'grapeseed'], image: '/product-images/grapeseed.jpeg' },
-  { keywords: ['karité', 'karite', 'shea'], image: '/product-images/sheabutter.jpeg' },
-  { keywords: ['aloe', 'aloe vera'], image: '/product-images/aloeavera.jpeg' },
+  { keywords: ['ghassoul'], image: '/product-images/ghassoul.webp' },
+  { keywords: ['shampoing', 'neutre', 'base'], image: '/product-images/neutralphshampoo.webp' },
+  { keywords: ['ricin', 'castor'], image: '/product-images/Castoroil.webp' },
+  { keywords: ['nigelle', 'black seed', 'habba'], image: '/product-images/blackseedoil.webp' },
+  { keywords: ['avocat'], image: '/product-images/avocado.webp' },
+  { keywords: ['protéine', 'soie', 'silk'], image: '/product-images/silkprotein.webp' },
+  { keywords: ['romarin'], image: '/product-images/rosemary.webp' },
+  { keywords: ['argan'], image: '/product-images/argan.webp' },
+  { keywords: ['pépins', 'raisin', 'grapeseed'], image: '/product-images/grapeseed.webp' },
+  { keywords: ['karité', 'karite', 'shea'], image: '/product-images/sheabutter.webp' },
+  { keywords: ['aloe', 'aloe vera'], image: '/product-images/aloeavera.webp' },
 ];
 
 // ===================
