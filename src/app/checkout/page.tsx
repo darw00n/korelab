@@ -43,6 +43,7 @@ export default function CheckoutPage() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    countryCode: '+212',
     city: '',
     address: '',
     email: '',
@@ -50,6 +51,24 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  // Liste des pays pour le téléphone
+  const countryCodes = [
+    { code: '+212', country: 'Maroc', flag: '🇲🇦' },
+    { code: '+33', country: 'France', flag: '🇫🇷' },
+    { code: '+1', country: 'USA/Canada', flag: '🇺🇸' },
+    { code: '+44', country: 'UK', flag: '🇬🇧' },
+    { code: '+34', country: 'Espagne', flag: '🇪🇸' },
+    { code: '+39', country: 'Italie', flag: '🇮🇹' },
+    { code: '+49', country: 'Allemagne', flag: '🇩🇪' },
+    { code: '+32', country: 'Belgique', flag: '🇧🇪' },
+    { code: '+41', country: 'Suisse', flag: '🇨🇭' },
+    { code: '+213', country: 'Algérie', flag: '🇩🇿' },
+    { code: '+216', country: 'Tunisie', flag: '🇹🇳' },
+    { code: '+966', country: 'Arabie Saoudite', flag: '🇸🇦' },
+    { code: '+971', country: 'EAU', flag: '🇦🇪' },
+  ];
 
   // Pré-remplir avec les données du profil
   useEffect(() => {
@@ -57,6 +76,7 @@ export default function CheckoutPage() {
       setFormData({
         name: user.profile.full_name || '',
         phone: user.phone || user.profile.phone || '',
+        countryCode: '+212',
         city: user.profile.city || '',
         address: user.profile.default_address?.street || '',
         email: user.email || '',
@@ -81,7 +101,7 @@ export default function CheckoutPage() {
           firstName: formData.name.split(' ')[0],
           lastName: formData.name.split(' ').slice(1).join(' '),
         },
-        phone: formData.phone,
+        phone: `${formData.countryCode}${formData.phone.replace(/^0+/, '')}`,
         payment_method: paymentMethod,
         payment_status: 'pending',
       })
@@ -209,10 +229,39 @@ export default function CheckoutPage() {
     }
   };
 
+  // Valider le formulaire d'info
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Le nom est obligatoire';
+    }
+    
+    if (!formData.phone.trim()) {
+      errors.phone = 'Le téléphone est obligatoire';
+    } else if (formData.phone.replace(/\D/g, '').length < 8) {
+      errors.phone = 'Numéro de téléphone invalide';
+    }
+    
+    if (!formData.city.trim()) {
+      errors.city = 'La ville est obligatoire';
+    }
+    
+    if (!formData.address.trim()) {
+      errors.address = 'L\'adresse est obligatoire';
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   // Soumettre le formulaire d'info
-  const handleInfoSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStep('payment');
+  const handleInfoSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    
+    if (validateForm()) {
+      setStep('payment');
+    }
   };
 
   // Soumettre le paiement
@@ -421,25 +470,43 @@ export default function CheckoutPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
-                  className="input"
+                  className={`input ${formErrors.name ? 'border-red-500' : ''}`}
                   placeholder="Votre nom"
                 />
+                {formErrors.name && (
+                  <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
+                )}
               </div>
 
               <div>
                 <label className="block font-mono text-xs uppercase tracking-wider text-science-900 mb-2">
                   Téléphone *
                 </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="input"
-                  placeholder="06 12 34 56 78"
-                />
+                <div className="flex gap-2">
+                  <select
+                    name="countryCode"
+                    value={formData.countryCode}
+                    onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                    className="input w-32 px-2"
+                  >
+                    {countryCodes.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.flag} {c.code}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={`input flex-1 ${formErrors.phone ? 'border-red-500' : ''}`}
+                    placeholder="6 12 34 56 78"
+                  />
+                </div>
+                {formErrors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
+                )}
               </div>
 
               <div>
@@ -465,10 +532,12 @@ export default function CheckoutPage() {
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
-                  required
-                  className="input"
+                  className={`input ${formErrors.city ? 'border-red-500' : ''}`}
                   placeholder="Casablanca"
                 />
+                {formErrors.city && (
+                  <p className="text-red-500 text-xs mt-1">{formErrors.city}</p>
+                )}
               </div>
 
               <div>
@@ -479,11 +548,13 @@ export default function CheckoutPage() {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  required
                   rows={3}
-                  className="input resize-none"
+                  className={`input resize-none ${formErrors.address ? 'border-red-500' : ''}`}
                   placeholder="Numéro, rue, quartier..."
                 />
+                {formErrors.address && (
+                  <p className="text-red-500 text-xs mt-1">{formErrors.address}</p>
+                )}
               </div>
             </motion.form>
           )}

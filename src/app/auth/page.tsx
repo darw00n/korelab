@@ -69,9 +69,27 @@ function AuthPageContent() {
 
   const [step, setStep] = useState<AuthStep>('phone');
   const [phone, setPhone] = useState('');
+  const [countryCode, setCountryCode] = useState('+212');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [fullName, setFullName] = useState('');
   const [countdown, setCountdown] = useState(0);
+
+  // Liste des pays pour le téléphone
+  const countryCodes = [
+    { code: '+212', country: 'Maroc', flag: '🇲🇦' },
+    { code: '+33', country: 'France', flag: '🇫🇷' },
+    { code: '+1', country: 'USA/Canada', flag: '🇺🇸' },
+    { code: '+44', country: 'UK', flag: '🇬🇧' },
+    { code: '+34', country: 'Espagne', flag: '🇪🇸' },
+    { code: '+39', country: 'Italie', flag: '🇮🇹' },
+    { code: '+49', country: 'Allemagne', flag: '🇩🇪' },
+    { code: '+32', country: 'Belgique', flag: '🇧🇪' },
+    { code: '+41', country: 'Suisse', flag: '🇨🇭' },
+    { code: '+213', country: 'Algérie', flag: '🇩🇿' },
+    { code: '+216', country: 'Tunisie', flag: '🇹🇳' },
+    { code: '+966', country: 'Arabie Saoudite', flag: '🇸🇦' },
+    { code: '+971', country: 'EAU', flag: '🇦🇪' },
+  ];
 
   // Rediriger si déjà connecté
   useEffect(() => {
@@ -104,7 +122,9 @@ function AuthPageContent() {
     e.preventDefault();
     clearError();
     
-    const result = await signInWithPhone(phone);
+    // Format phone with country code (remove leading 0)
+    const fullPhone = `${countryCode}${phone.replace(/^0+/, '')}`;
+    const result = await signInWithPhone(fullPhone);
     if (result.success) {
       setStep('otp');
       setCountdown(60);
@@ -139,7 +159,9 @@ function AuthPageContent() {
     const otpCode = otp.join('');
     if (otpCode.length !== 6) return;
 
-    const result = await verifyOtp(phone, otpCode);
+    // Format phone with country code
+    const fullPhone = `${countryCode}${phone.replace(/^0+/, '')}`;
+    const result = await verifyOtp(fullPhone, otpCode);
     if (result.success) {
       // Vérifier si c'est un nouvel utilisateur (pas de nom)
       if (!user?.profile?.full_name) {
@@ -164,7 +186,9 @@ function AuthPageContent() {
     if (countdown > 0) return;
     clearError();
     
-    const result = await signInWithPhone(phone);
+    // Format phone with country code
+    const fullPhone = `${countryCode}${phone.replace(/^0+/, '')}`;
+    const result = await signInWithPhone(fullPhone);
     if (result.success) {
       setCountdown(60);
       setOtp(['', '', '', '', '', '']);
@@ -210,6 +234,9 @@ function AuthPageContent() {
               <PhoneStep
                 phone={phone}
                 setPhone={setPhone}
+                countryCode={countryCode}
+                setCountryCode={setCountryCode}
+                countryCodes={countryCodes}
                 onSubmit={handlePhoneSubmit}
                 isLoading={isLoading}
                 error={error}
@@ -218,7 +245,7 @@ function AuthPageContent() {
 
             {step === 'otp' && (
               <OtpStep
-                phone={phone}
+                phone={`${countryCode}${phone.replace(/^0+/, '')}`}
                 otp={otp}
                 onOtpChange={handleOtpChange}
                 onOtpKeyDown={handleOtpKeyDown}
@@ -263,12 +290,15 @@ function AuthPageContent() {
 interface PhoneStepProps {
   phone: string;
   setPhone: (phone: string) => void;
+  countryCode: string;
+  setCountryCode: (code: string) => void;
+  countryCodes: { code: string; country: string; flag: string }[];
   onSubmit: (e: React.FormEvent) => void;
   isLoading: boolean;
   error: string | null;
 }
 
-function PhoneStep({ phone, setPhone, onSubmit, isLoading, error }: PhoneStepProps) {
+function PhoneStep({ phone, setPhone, countryCode, setCountryCode, countryCodes, onSubmit, isLoading, error }: PhoneStepProps) {
   return (
     <motion.div
       key="phone"
@@ -303,18 +333,25 @@ function PhoneStep({ phone, setPhone, onSubmit, isLoading, error }: PhoneStepPro
           <label className="block font-mono text-xs uppercase tracking-wider text-science-900 mb-2">
             Numéro de téléphone
           </label>
-          <div className="relative">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2 text-text-secondary">
-              <span className="font-mono text-sm">🇲🇦</span>
-              <span className="font-mono text-sm">+212</span>
-            </div>
+          <div className="flex gap-2">
+            <select
+              value={countryCode}
+              onChange={(e) => setCountryCode(e.target.value)}
+              className="input w-28 px-2 text-sm"
+            >
+              {countryCodes.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.flag} {c.code}
+                </option>
+              ))}
+            </select>
             <input
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
               placeholder="6 12 34 56 78"
-              className="input pl-24"
-              maxLength={10}
+              className="input flex-1"
+              maxLength={15}
               required
               autoFocus
             />
