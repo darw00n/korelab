@@ -1,13 +1,13 @@
 'use client';
 
 // ============================================
-// KORELAB - Diagnostic Wizard (HAIR CARE)
-// Formulaire multi-étapes pour le diagnostic capillaire
+// KORELAB - Diagnostic Wizard (Science Snap)
+// Formulaire multi-étapes avec style clinique
 // ============================================
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { Loader2, ArrowLeft } from 'lucide-react';
 import { 
   useDiagnosticStore, 
   selectCanProceed, 
@@ -15,7 +15,8 @@ import {
   selectHairProfile,
 } from '@/store/diagnosticStore';
 import { useMatchingEngine } from '@/hooks/useMatchingEngine';
-import { ProgressBar } from '@/components/ui/ProgressBar';
+import { useAuthStore } from '@/store/authStore';
+import { supabase } from '@/lib/supabase';
 
 // Import des étapes
 import { StepIntro } from './steps/StepIntro';
@@ -24,7 +25,8 @@ import { StepScalp } from './steps/StepScalp';
 import { StepPorosity } from './steps/StepPorosity';
 import { StepConcerns } from './steps/StepConcerns';
 import { StepLoading } from './steps/StepLoading';
-import { RoutineReveal } from './RoutineReveal';
+import { StepAuthRequired } from './steps/StepAuthRequired';
+import { RoutineTutorial } from './RoutineTutorial';
 
 // ===================
 // ANIMATION VARIANTS
@@ -70,6 +72,14 @@ export function DiagnosticWizard() {
   const progress = useDiagnosticStore(selectStepProgress);
   const hairProfile = useDiagnosticStore(selectHairProfile);
   
+  // Auth state
+  const { authState, user } = useAuthStore();
+  const isAuthenticated = authState === 'authenticated';
+  
+  // État pour savoir si on affiche l'auth ou les résultats
+  const [showAuthStep, setShowAuthStep] = useState(false);
+  const [authCompleted, setAuthCompleted] = useState(false);
+  
   // Hook pour le moteur de recommandation
   const { 
     isLoading: isLoadingData, 
@@ -87,6 +97,75 @@ export function DiagnosticWizard() {
   
   // Ref pour éviter les calculs multiples
   const hasCalculated = useRef(false);
+  const hasSavedDiagnostic = useRef(false);
+
+  // Fonction pour sauvegarder le diagnostic en DB
+  const saveDiagnostic = useCallback(async () => {
+    if (hasSavedDiagnostic.current) return;
+    if (!user?.id) return;
+    
+    const answers = useDiagnosticStore.getState().answers;
+    const results = useDiagnosticStore.getState().results;
+    
+    try {
+      hasSavedDiagnostic.current = true;
+      
+      // 1. Sauvegarder la session de diagnostic
+      const { error: sessionError } = await supabase
+        .from('diagnostic_sessions')
+        .insert({
+          user_id: user.id,
+          texture_id: answers.textureId || null,
+          porosity_id: answers.porosityId || null,
+          scalp_type_id: answers.scalpTypeId || null,
+          concern_ids: answers.concernIds || [],
+          recommended_products: results || null,
+          match_score: results?.matchScore || null,
+          is_complete: true,
+          completed_at: new Date().toISOString(),
+          name: `Diagnostic ${new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}`,
+        });
+      
+      if (sessionError) {
+        console.error('Erreur sauvegarde session diagnostic:', sessionError);
+      }
+      
+      // 2. Désactiver les anciens profils capillaires
+      await supabase
+        .from('user_hair_profiles')
+        .update({ is_active: false })
+        .eq('user_id', user.id);
+      
+      // 3. Créer le nouveau profil capillaire actif (remplace l'ancien)
+      const { error: profileError } = await supabase
+        .from('user_hair_profiles')
+        .insert({
+          user_id: user.id,
+          texture_id: answers.textureId || null,
+          porosity_id: answers.porosityId || null,
+          scalp_type_id: answers.scalpTypeId || null,
+          concern_ids: answers.concernIds || [],
+          is_active: true,
+          name: 'Mon profil capillaire',
+        });
+      
+      if (profileError) {
+        console.error('Erreur sauvegarde profil capillaire:', profileError);
+        hasSavedDiagnostic.current = false;
+      } else {
+        console.log('✅ Diagnostic et profil capillaire sauvegardés avec succès');
+        
+        // 4. Mettre à jour le store auth avec le nouveau profil
+        const { refreshUser } = useAuthStore.getState();
+        if (refreshUser) {
+          await refreshUser();
+        }
+      }
+    } catch (error) {
+      console.error('Erreur sauvegarde diagnostic:', error);
+      hasSavedDiagnostic.current = false;
+    }
+  }, [user?.id]);
 
   // Navigation
   const handleNext = useCallback(() => {
@@ -140,11 +219,32 @@ export function DiagnosticWizard() {
           console.error('Profil incomplet:', profile);
         }
         setLoading(false);
+        
+        // Après le loading, vérifier si l'utilisateur est connecté
+        // Si non, afficher l'étape d'authentification
+        if (!isAuthenticated && !authCompleted) {
+          setShowAuthStep(true);
+        }
       }, 2500);
 
       return () => clearTimeout(timer);
     }
-  }, [currentStep, isReady, generateRoutine, setResults, setLoading]);
+  }, [currentStep, isReady, generateRoutine, setResults, setLoading, isAuthenticated, authCompleted]);
+  
+  // Si l'utilisateur était déjà authentifié, pas besoin de l'étape auth
+  useEffect(() => {
+    if (isAuthenticated) {
+      setAuthCompleted(true);
+      setShowAuthStep(false);
+    }
+  }, [isAuthenticated]);
+  
+  // Sauvegarder le diagnostic pour les utilisateurs déjà connectés
+  useEffect(() => {
+    if (isAuthenticated && currentStep === 'results' && !isCalculating && !showAuthStep) {
+      saveDiagnostic();
+    }
+  }, [isAuthenticated, currentStep, isCalculating, showAuthStep, saveDiagnostic]);
   
   // Reset le flag quand on quitte l'étape results
   useEffect(() => {
@@ -157,8 +257,8 @@ export function DiagnosticWizard() {
   if (isLoadingData) {
     return (
       <div className="min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center">
-        <Loader2 className="w-10 h-10 text-primary animate-spin mb-4" />
-        <p className="text-secondary-600">Chargement des données...</p>
+        <Loader2 className="w-10 h-10 text-science-900 animate-spin mb-4" />
+        <p className="font-mono text-sm uppercase tracking-wider text-text-secondary">CHARGEMENT...</p>
       </div>
     );
   }
@@ -167,16 +267,16 @@ export function DiagnosticWizard() {
   if (error) {
     return (
       <div className="min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center px-4 text-center">
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-          <span className="text-3xl">😕</span>
+        <div className="w-16 h-16 bg-red-100 rounded-md flex items-center justify-center mb-4">
+          <span className="text-3xl">⚠</span>
         </div>
-        <h2 className="text-xl font-bold text-secondary-900 mb-2">Oups !</h2>
-        <p className="text-secondary-600 mb-4">{error}</p>
+        <h2 className="text-xl font-mono font-bold uppercase tracking-wider text-science-900 mb-2">ERREUR</h2>
+        <p className="text-text-secondary mb-4">{error}</p>
         <button 
           onClick={() => window.location.reload()} 
-          className="px-6 py-3 bg-primary text-white rounded-xl font-semibold"
+          className="btn-primary px-6 py-3"
         >
-          Réessayer
+          RÉESSAYER
         </button>
       </div>
     );
@@ -201,11 +301,24 @@ export function DiagnosticWizard() {
         return <StepConcerns onNext={handleNext} concerns={concerns} />;
       
       case 'results':
-        // Afficher loading ou résultats
+        // Afficher loading, auth, ou résultats
         if (isCalculating) {
           return <StepLoading />;
         }
-        return <RoutineReveal />;
+        // Si non authentifié et pas encore complété l'auth
+        if (showAuthStep && !authCompleted) {
+          return (
+            <StepAuthRequired 
+              onAuthenticated={() => {
+                setAuthCompleted(true);
+                setShowAuthStep(false);
+                // Sauvegarder le diagnostic après authentification
+                saveDiagnostic();
+              }} 
+            />
+          );
+        }
+        return <RoutineTutorial />;
       
       default:
         return <StepIntro onStart={handleNext} />;
@@ -216,46 +329,60 @@ export function DiagnosticWizard() {
   const showHeader = currentStep !== 'intro' && currentStep !== 'results';
   const showProgress = currentStep !== 'intro' && currentStep !== 'results' && !isCalculating;
 
+  // Calculer le numéro de paramètre actuel
+  const getStepNumber = () => {
+    const stepOrder = ['texture', 'scalp', 'porosity', 'concerns'];
+    return stepOrder.indexOf(currentStep) + 1;
+  };
+
+  const totalSteps = 4;
+
+  // Vérifier si on peut revenir en arrière
+  const canGoBack = currentStep !== 'intro' && currentStep !== 'results';
+
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex flex-col">
-      {/* Barre de progression */}
-      {showProgress && (
+    <div className="min-h-[calc(100vh-8rem)] flex flex-col bg-white">
+      {/* Top Bar avec PARAMÈTRE X/Y et ENREGISTREMENT */}
+      {showHeader && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="px-4 pt-4"
+          className="px-4 pt-4 pb-2 border-b border-slate-200"
         >
+          {/* Bouton Retour */}
+          {canGoBack && (
+            <button
+              onClick={handlePrev}
+              className="flex items-center gap-2 text-text-secondary hover:text-science-900 transition-colors mb-3"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="font-mono text-xs uppercase tracking-wider">Retour</span>
+            </button>
+          )}
+
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-secondary-500">
-              Étape {progress.current} sur {progress.total}
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-science-900">
+              PARAMÈTRE {getStepNumber()}/{totalSteps}
             </span>
-            <span className="text-sm font-semibold text-primary">
-              {progress.percent}%
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-accent-500 animate-pulse">
+              ENREGISTREMENT...
             </span>
           </div>
-          <ProgressBar value={progress.percent} />
-        </motion.div>
-      )}
-
-      {/* Bouton retour */}
-      {showHeader && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="px-4 pt-4"
-        >
-          <button
-            onClick={handlePrev}
-            className="flex items-center gap-2 text-secondary-600 hover:text-secondary-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Retour</span>
-          </button>
+          
+          {/* Progress Bar fine bleue */}
+          <div className="progress-bar">
+            <motion.div
+              className="progress-bar-fill"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress.percent}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
         </motion.div>
       )}
 
       {/* Contenu de l'étape */}
-      <div className="flex-1 px-4 py-6 overflow-hidden">
+      <div className={`flex-1 ${currentStep === 'results' ? 'overflow-y-auto' : 'overflow-hidden'}`}>
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentStep}
@@ -265,7 +392,7 @@ export function DiagnosticWizard() {
             animate="center"
             exit="exit"
             transition={slideTransition}
-            className="h-full"
+            className={currentStep === 'results' ? 'min-h-full' : 'h-full'}
           >
             {renderStep()}
           </motion.div>

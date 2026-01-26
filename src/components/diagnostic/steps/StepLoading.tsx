@@ -1,116 +1,98 @@
 'use client';
 
 // ============================================
-// KORELAB - Step Loading (HAIR CARE)
-// Animation de chargement pendant l'analyse IA
+// KORELAB - Step Loading (Science Snap)
+// Animation de chargement avec style clinique
 // ============================================
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Dna, FlaskConical, Microscope } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n/context';
+import { Activity } from 'lucide-react';
 
-const LOADING_ICONS = [Microscope, FlaskConical, Dna, Sparkles];
-const LOADING_KEYS = [
-  'diagnostic.loading.steps.texture',
-  'diagnostic.loading.steps.porosity',
-  'diagnostic.loading.steps.actives',
-  'diagnostic.loading.steps.routine',
+const LOADING_TEXTS = [
+  'Corrélation des symptômes...',
+  'Traitement des données...',
+  'Analyse de compatibilité...',
+  'Génération du protocole...',
 ];
 
 export function StepLoading() {
   const [currentStep, setCurrentStep] = useState(0);
-  const { t } = useTranslation();
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStep((prev) => (prev + 1) % LOADING_ICONS.length);
+    // Changer le texte toutes les 600ms
+    const textInterval = setInterval(() => {
+      setCurrentStep((prev) => (prev + 1) % LOADING_TEXTS.length);
     }, 600);
 
-    return () => clearInterval(interval);
+    // Progress bar
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) return 100;
+        return prev + 2;
+      });
+    }, 50);
+
+    return () => {
+      clearInterval(textInterval);
+      clearInterval(progressInterval);
+    };
   }, []);
 
-  const CurrentIcon = LOADING_ICONS[currentStep];
-
   return (
-    <div className="h-full flex flex-col items-center justify-center text-center px-4">
-      {/* Cercle animé avec icône */}
+    <div className="h-full flex flex-col items-center justify-center text-center px-4 bg-white">
+      {/* Icône Pouls qui bat */}
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className="relative mb-8"
+        className="mb-8"
       >
-        {/* Cercle de fond animé */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-          className="w-32 h-32 rounded-full border-4 border-primary-200 border-t-primary"
-        />
-        
-        {/* Icône centrale */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            key={currentStep}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            className="w-16 h-16 bg-gradient-to-br from-primary to-primary-600 rounded-2xl flex items-center justify-center shadow-lg"
-          >
-            <CurrentIcon className="w-8 h-8 text-white" />
-          </motion.div>
-        </div>
+          animate={{
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className="w-20 h-20 flex items-center justify-center"
+        >
+          <Activity className="w-16 h-16 text-accent-500" />
+        </motion.div>
       </motion.div>
 
-      {/* Titre */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-2xl font-bold text-secondary-900 mb-4 font-playfair"
-      >
-        {t('diagnostic.loading.title')}
-      </motion.h2>
-
-      {/* Texte de progression */}
+      {/* Texte technique */}
       <motion.p
         key={currentStep}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-secondary-600 mb-8 flex items-center gap-2"
+        exit={{ opacity: 0, y: -10 }}
+        className="font-mono text-sm uppercase tracking-wider text-science-900 mb-8"
       >
-        <CurrentIcon className="w-4 h-4 text-primary" />
-        {t(LOADING_KEYS[currentStep])}
+        {LOADING_TEXTS[currentStep]}
       </motion.p>
 
-      {/* Barre de progression */}
+      {/* Barre de chargement scientifique */}
       <div className="w-full max-w-xs">
-        <div className="h-2 bg-secondary-100 rounded-full overflow-hidden">
+        <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 2.5, ease: 'easeInOut' }}
-            className="h-full bg-gradient-to-r from-primary via-accent to-primary rounded-full"
+            animate={{ width: `${progress}%` }}
+            className="h-full bg-science-900 rounded-full"
           />
         </div>
       </div>
 
-      {/* Points de chargement */}
-      <div className="flex gap-2 mt-6">
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-            className="w-2 h-2 bg-primary rounded-full"
-          />
-        ))}
-      </div>
+      {/* Pourcentage */}
+      <motion.p
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+        className="font-mono text-xs uppercase tracking-wider text-text-secondary mt-4"
+      >
+        {progress}%
+      </motion.p>
     </div>
   );
 }

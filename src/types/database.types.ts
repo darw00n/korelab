@@ -279,3 +279,67 @@ export interface Review {
   is_verified: boolean;
   created_at: string;
 }
+
+// ===================
+// PROFILS UTILISATEURS
+// ===================
+
+export interface UserProfile {
+  id: string; // Same as auth.users.id
+  full_name: string | null;
+  phone: string | null;
+  phone_verified: boolean;
+  default_address: {
+    street: string;
+    city: string;
+    postal_code?: string;
+    country?: string;
+  } | null;
+  city: string | null;
+  preferred_language: string;
+  accepts_marketing: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UserHairProfile {
+  id: string;
+  user_id: string;
+  texture_id: string | null;
+  porosity_id: string | null;
+  scalp_type_id: string | null;
+  concern_ids: string[] | null;
+  name: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+// ===================
+// AUTHENTIFICATION
+// ===================
+
+export interface AuthUser {
+  id: string;
+  email: string | null;
+  phone: string | null;
+  created_at: string;
+  profile?: UserProfile | null;
+  hairProfile?: UserHairProfile | null;
+}
+
+export type AuthState = 
+  | 'loading'
+  | 'unauthenticated'
+  | 'awaiting_verification'
+  | 'authenticated';
+
+// ===================
+// HISTORIQUE DIAGNOSTIC
+// ===================
+
+export interface DiagnosticHistoryItem extends DiagnosticSession {
+  name: string | null;
+  is_complete: boolean;
+  completed_at: string | null;
+}

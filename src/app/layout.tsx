@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Space_Mono } from 'next/font/google';
 import './globals.css';
 import { I18nProvider } from '@/lib/i18n/context';
+import { AuthProvider } from '@/components/providers/AuthProvider';
 
 // ===================
 // FONTS
@@ -13,9 +14,10 @@ const inter = Inter({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
+const spaceMono = Space_Mono({
+  variable: '--font-space-mono',
   subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
 });
 
@@ -41,7 +43,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#B45309',
+  themeColor: '#0F172A',
 };
 
 // ===================
@@ -55,10 +57,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        <I18nProvider>
-          {children}
-        </I18nProvider>
+      <body className={`${inter.variable} ${spaceMono.variable} font-sans antialiased`}>
+        <AuthProvider>
+          <I18nProvider>
+            {children}
+          </I18nProvider>
+        </AuthProvider>
       </body>
     </html>
   );

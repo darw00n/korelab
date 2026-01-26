@@ -36,6 +36,12 @@ interface MatchingData {
   scalpCompat: ProductScalpCompat[];
 }
 
+interface ProductCompatibility {
+  isRecommended: boolean;
+  score: number;
+  reason?: string;
+}
+
 interface UseMatchingEngineReturn {
   // États
   isLoading: boolean;
@@ -51,6 +57,14 @@ interface UseMatchingEngineReturn {
   
   // Fonction principale
   generateRoutine: (profile: HairProfile) => HairRoutineRecommendation | null;
+  
+  // Vérifier la compatibilité d'un produit avec un profil capillaire
+  getProductCompatibility: (productId: string, hairProfile: { 
+    texture_id: string | null; 
+    porosity_id: string | null; 
+    scalp_type_id: string | null;
+    concern_ids: string[] | null;
+  } | null) => ProductCompatibility;
   
   // Reload
   reload: () => Promise<void>;
@@ -165,6 +179,110 @@ export function useMatchingEngine(): UseMatchingEngineReturn {
     return generateHairRoutine(profile, data);
   }, [data]);
 
+  // Fonction pour vérifier la compatibilité d'un produit avec un profil capillaire
+  const getProductCompatibility = useCallback((
+    productId: string, 
+    hairProfile: { 
+      texture_id: string | null; 
+      porosity_id: string | null; 
+      scalp_type_id: string | null;
+      concern_ids: string[] | null;
+    } | null
+  ): ProductCompatibility => {
+    // Si pas de profil ou pas de données, pas de recommandation
+    if (!hairProfile || !data) {
+      return { isRecommended: false, score: 0 };
+    }
+
+    let score = 0;
+    let matchCount = 0;
+    let totalChecks = 0;
+
+    // Vérifier la compatibilité texture
+    if (hairProfile.texture_id) {
+      const textureCompat = data.textureCompat.find(
+        tc => tc.product_id === productId && tc.texture_id === hairProfile.texture_id
+      );
+      if (textureCompat) {
+        totalChecks++;
+        if (textureCompat.compatibility === 'recommended') {
+          score += 3;
+          matchCount++;
+        } else if (textureCompat.compatibility === 'compatible') {
+          score += 2;
+          matchCount++;
+        } else if (textureCompat.compatibility === 'not_recommended') {
+          score -= 1;
+        }
+      }
+    }
+
+    // Vérifier la compatibilité porosité
+    if (hairProfile.porosity_id) {
+      const porosityCompat = data.porosityCompat.find(
+        pc => pc.product_id === productId && pc.porosity_id === hairProfile.porosity_id
+      );
+      if (porosityCompat) {
+        totalChecks++;
+        if (porosityCompat.compatibility === 'recommended') {
+          score += 3;
+          matchCount++;
+        } else if (porosityCompat.compatibility === 'compatible') {
+          score += 2;
+          matchCount++;
+        } else if (porosityCompat.compatibility === 'not_recommended') {
+          score -= 1;
+        }
+      }
+    }
+
+    // Vérifier la compatibilité cuir chevelu
+    if (hairProfile.scalp_type_id) {
+      const scalpCompat = data.scalpCompat.find(
+        sc => sc.product_id === productId && sc.scalp_type_id === hairProfile.scalp_type_id
+      );
+      if (scalpCompat) {
+        totalChecks++;
+        if (scalpCompat.compatibility === 'recommended') {
+          score += 3;
+          matchCount++;
+        } else if (scalpCompat.compatibility === 'compatible') {
+          score += 2;
+          matchCount++;
+        } else if (scalpCompat.compatibility === 'not_recommended') {
+          score -= 1;
+        }
+      }
+    }
+
+    // Vérifier les préoccupations
+    if (hairProfile.concern_ids && hairProfile.concern_ids.length > 0) {
+      const concernScores = data.concernScoring.filter(
+        cs => cs.product_id === productId && hairProfile.concern_ids!.includes(cs.concern_id)
+      );
+      if (concernScores.length > 0) {
+        const avgScore = concernScores.reduce((sum, cs) => sum + cs.score, 0) / concernScores.length;
+        if (avgScore >= 7) {
+          score += 2;
+          matchCount++;
+        } else if (avgScore >= 5) {
+          score += 1;
+          matchCount++;
+        }
+        totalChecks++;
+      }
+    }
+
+    // Un produit est "recommandé" s'il a au moins 2 matchs positifs et un score >= 4
+    const isRecommended = matchCount >= 2 && score >= 4;
+
+    return {
+      isRecommended,
+      score,
+      reason: isRecommended ? 'Adapté à votre type de cheveux' : undefined,
+    };
+  }, [data]);
+
   return {
     isLoading,
     isReady: !isLoading && !error && data !== null,
@@ -175,6 +293,7 @@ export function useMatchingEngine(): UseMatchingEngineReturn {
     concerns: data?.concerns || [],
     products: data?.products || [],
     generateRoutine,
+    getProductCompatibility,
     reload: loadData,
   };
 }

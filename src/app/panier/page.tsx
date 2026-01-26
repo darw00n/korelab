@@ -15,12 +15,14 @@ import {
   ArrowRight,
   Truck,
   MessageCircle,
-  Sparkles
+  Sparkles,
+  Store
 } from 'lucide-react';
 import Link from 'next/link';
 import { MobileShell } from '@/components/layout/MobileShell';
 import { useCartStore } from '@/store/cartStore';
 import { useTranslation } from '@/lib/i18n/context';
+import { getProductImageUrl } from '@/lib/product-images';
 
 export default function PanierPage() {
   const { t } = useTranslation();
@@ -41,10 +43,16 @@ export default function PanierPage() {
           <p className="text-secondary-600 mb-6">
             {t('cart.empty_state.description')}
           </p>
-          <Link href="/diagnostic" className="btn-primary">
-            <Sparkles className="w-5 h-5" />
-            {t('cart.empty_state.cta_button')}
-          </Link>
+          <div className="flex flex-col gap-3 w-full max-w-xs">
+            <Link href="/shop" className="btn-primary flex items-center justify-center gap-2">
+              <Store className="w-5 h-5" />
+              Voir la boutique
+            </Link>
+            <Link href="/diagnostic" className="btn-secondary flex items-center justify-center gap-2">
+              <Sparkles className="w-5 h-5" />
+              {t('cart.empty_state.cta_button')}
+            </Link>
+          </div>
         </div>
       </MobileShell>
     );
@@ -52,7 +60,7 @@ export default function PanierPage() {
 
   return (
     <MobileShell headerTitle={t('cart.header_title')}>
-      <div className="px-4 py-4 pb-48">
+      <div className="px-4 py-4 pb-64">
         {/* Badge Skin-Match si applicable */}
         {isFromDiagnostic && (
           <motion.div
@@ -75,34 +83,45 @@ export default function PanierPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex gap-3 p-3 bg-white rounded-xl border border-secondary-200"
+              className="flex gap-3 p-3 card"
             >
-              {/* Image placeholder */}
-              <div className="w-20 h-20 bg-secondary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <ShoppingBag className="w-8 h-8 text-secondary-400" />
+              {/* Image produit */}
+              <div className="w-20 h-20 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                {(() => {
+                  const imageUrl = getProductImageUrl(item.product);
+                  return imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={item.product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <ShoppingBag className="w-8 h-8 text-text-muted" />
+                  );
+                })()}
               </div>
 
               {/* Infos */}
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-secondary-900 text-sm leading-tight line-clamp-2">
+                <h3 className="font-mono font-bold text-sm text-science-900 leading-tight line-clamp-2 mb-1">
                   {item.product.name}
                 </h3>
-                <p className="text-primary font-bold mt-1">
-                  {item.product.price} MAD
+                <p className="font-mono font-bold text-base text-science-900 mb-2">
+                  {item.product.price} DH
                 </p>
 
                 {/* Quantité */}
                 <div className="flex items-center gap-2 mt-2">
                   <button
                     onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200"
+                    className="w-8 h-8 flex items-center justify-center rounded-md bg-slate-100 text-science-900 hover:bg-slate-200 transition-colors"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="w-8 text-center font-medium">{item.quantity}</span>
+                  <span className="w-8 text-center font-mono font-bold text-sm text-science-900">{item.quantity}</span>
                   <button
                     onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200"
+                    className="w-8 h-8 flex items-center justify-center rounded-md bg-slate-100 text-science-900 hover:bg-slate-200 transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -112,7 +131,7 @@ export default function PanierPage() {
               {/* Supprimer */}
               <button
                 onClick={() => removeItem(item.product.id)}
-                className="p-2 text-secondary-400 hover:text-error self-start"
+                className="p-2 text-text-muted hover:text-red-600 self-start transition-colors"
               >
                 <Trash2 className="w-5 h-5" />
               </button>
@@ -121,16 +140,16 @@ export default function PanierPage() {
         </div>
 
         {/* Info livraison */}
-        <div className="mt-6 p-4 bg-secondary-50 rounded-xl">
+        <div className="mt-6 p-4 bg-slate-50 border border-slate-200 rounded-md">
           <div className="flex items-center gap-3">
-            <Truck className="w-5 h-5 text-secondary-600" />
+            <Truck className="w-5 h-5 text-science-900" />
             <div>
               {total >= 300 ? (
-                <p className="text-sm font-medium text-accent">
+                <p className="font-mono text-sm font-bold uppercase tracking-wider text-success-800">
                   {t('cart.shipping_info.free_shipping')}
                 </p>
               ) : (
-                <p className="text-sm text-secondary-600">
+                <p className="font-sans text-sm text-text-secondary">
                   {t('cart.shipping_info.remaining_for_free').replace('{amount}', String(300 - total))}
                 </p>
               )}
@@ -139,43 +158,43 @@ export default function PanierPage() {
         </div>
       </div>
 
-      {/* Sticky Footer */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-secondary-200 shadow-elevated z-50 p-4">
+      {/* Sticky Footer - above bottom navigation */}
+      <div className="fixed bottom-16 left-0 right-0 bg-white border-t border-slate-200 shadow-lg z-50 p-4">
         {/* Récapitulatif */}
         <div className="space-y-2 mb-4">
           <div className="flex justify-between text-sm">
-            <span className="text-secondary-600">{t('cart.summary.subtotal').replace('{count}', String(itemCount))}</span>
-            <span className="text-secondary-900">{subtotal} MAD</span>
+            <span className="font-sans text-text-secondary">{t('cart.summary.subtotal').replace('{count}', String(itemCount))}</span>
+            <span className="font-mono font-bold text-science-900">{subtotal} DH</span>
           </div>
           
           {discountAmount > 0 && (
             <div className="flex justify-between text-sm">
-              <span className="text-accent">{t('cart.summary.discount')}</span>
-              <span className="text-accent">-{discountAmount} MAD</span>
+              <span className="font-mono text-xs uppercase tracking-wider text-success-800">{t('cart.summary.discount')}</span>
+              <span className="font-mono font-bold text-success-800">-{discountAmount} DH</span>
             </div>
           )}
           
           <div className="flex justify-between text-sm">
-            <span className="text-secondary-600">{t('cart.summary.shipping')}</span>
-            <span className="text-secondary-900">
-              {shippingCost === 0 ? t('cart.summary.free') : `${shippingCost} MAD`}
+            <span className="font-sans text-text-secondary">{t('cart.summary.shipping')}</span>
+            <span className="font-mono font-bold text-science-900">
+              {shippingCost === 0 ? t('cart.summary.free') : `${shippingCost} DH`}
             </span>
           </div>
           
-          <div className="flex justify-between font-bold text-lg pt-2 border-t border-secondary-200">
-            <span>{t('cart.summary.total')}</span>
-            <span className="text-primary">{total} MAD</span>
+          <div className="flex justify-between font-mono font-bold text-lg pt-2 border-t border-slate-200">
+            <span className="uppercase tracking-wider text-science-900">{t('cart.summary.total')}</span>
+            <span className="text-science-900">{total} DH</span>
           </div>
         </div>
 
         {/* Boutons */}
         <div className="flex gap-3">
-          <button className="flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-xl text-white">
+          <button className="flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-md text-white">
             <MessageCircle className="w-6 h-6" />
           </button>
           <Link
             href="/checkout"
-            className="flex-1 flex items-center justify-center gap-2 h-14 bg-primary text-white font-semibold rounded-xl"
+            className="flex-1 btn-primary h-14 flex items-center justify-center gap-2"
           >
             {t('cart.buttons.order')}
             <ArrowRight className="w-5 h-5" />

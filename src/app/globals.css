@@ -3,21 +3,38 @@
 @tailwind utilities;
 
 /* ============================================
-   KORELAB - Global Styles
-   Mobile-First Design System
+   KORELAB - Science Snap Design System
+   Mobile-First, Clinique & Technique
    ============================================ */
 
 @layer base {
   :root {
-    --background: 250 250 249; /* Stone-50 */
-    --foreground: 28 25 23; /* Stone-900 */
-    --primary: 180 83 9; /* Amber-700 */
-    --secondary: 120 113 108; /* Stone-500 */
-    --accent: 21 128 61; /* Green-700 */
+    /* Fond Principal - Clinique */
+    --background: 255 255 255; /* White #FFFFFF */
+    --background-alt: 248 250 252; /* Slate-50 #F8FAFC */
+    
+    /* Texte Principal */
+    --text-primary: 15 23 42; /* Slate-900 #0F172A */
+    --text-secondary: 100 116 139; /* Slate-500 #64748B */
+    --text-muted: 148 163 184; /* Slate-400 #94A3B8 */
+    
+    /* Couleur Science (Primaire) */
+    --science: 15 23 42; /* Science Blue #0F172A */
+    
+    /* Accent (Action/Data) */
+    --accent: 56 189 248; /* Cyan #38BDF8 */
+    
+    /* Success/Validation */
+    --success: 22 101 52; /* Green-800 #166534 */
+    --success-bg: 240 253 244; /* Green-50 #F0FDF4 */
+    
+    /* Bordures */
+    --border: 226 232 240; /* Slate-200 #E2E8F0 */
+    --border-light: 241 245 249; /* Slate-100 #F1F5F9 */
   }
 
   * {
-    @apply border-secondary-200;
+    @apply border-slate-200;
   }
 
   html {
@@ -26,7 +43,7 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-white text-text-primary antialiased;
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 
@@ -38,51 +55,81 @@
 
 @layer components {
   /* ============================================
-     BOUTONS
+     BOUTONS - DESIGN TECHNIQUE
      ============================================ */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2
-           bg-primary text-white font-semibold
-           px-6 py-3.5 rounded-lg
-           transition-all duration-200
-           hover:bg-primary-800 active:scale-[0.98]
-           disabled:opacity-50 disabled:cursor-not-allowed;
+           bg-science-900 text-white font-mono font-bold
+           uppercase tracking-wider
+           px-6 py-3 rounded-md
+           transition-all duration-200 ease-out
+           hover:bg-science-800
+           active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed
+           shadow-sm;
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2
-           bg-secondary-100 text-secondary-800 font-medium
-           px-6 py-3.5 rounded-lg
-           transition-all duration-200
-           hover:bg-secondary-200 active:scale-[0.98];
+           bg-white text-science-900 font-mono font-bold
+           uppercase tracking-wider
+           border border-slate-200
+           px-6 py-3 rounded-md
+           transition-all duration-200 ease-out
+           hover:bg-slate-50 hover:border-slate-300
+           active:scale-[0.98]
+           shadow-sm;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2
+           bg-accent-500 text-white font-mono font-bold
+           uppercase tracking-wider
+           px-6 py-3 rounded-md
+           transition-all duration-200 ease-out
+           hover:bg-accent-600
+           active:scale-[0.98]
+           shadow-sm;
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2
-           text-secondary-600 font-medium
-           px-4 py-2 rounded-lg
+           text-text-secondary font-mono font-medium
+           uppercase tracking-wider
+           px-4 py-2 rounded-md
            transition-all duration-200
-           hover:bg-secondary-100;
+           hover:bg-slate-50 hover:text-text-primary;
   }
 
   /* ============================================
-     CARTES SÉLECTIONNABLES (pour le Wizard)
+     CARTES - DESIGN CLINIQUE
      ============================================ */
+  .card {
+    @apply bg-white border border-slate-100 rounded-md
+           shadow-card
+           transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply hover:border-slate-200 hover:shadow-elevated;
+  }
+
   .selectable-card {
-    @apply relative p-4 rounded-xl border-2 border-secondary-200
+    @apply relative p-4 rounded-md border border-slate-200
            bg-white cursor-pointer
-           transition-all duration-200
-           hover:border-primary-300 hover:shadow-card;
+           transition-all duration-200 ease-out
+           hover:border-accent-500 hover:bg-slate-50;
   }
 
   .selectable-card.selected {
-    @apply border-primary bg-primary-50 shadow-soft;
+    @apply border-science-900 bg-science-50
+           ring-2 ring-science-900 ring-opacity-20;
   }
 
   .selectable-card .check-indicator {
-    @apply absolute top-3 right-3 w-6 h-6 rounded-full
+    @apply absolute top-2 right-2 w-5 h-5 rounded-sm
            flex items-center justify-center
-           bg-primary text-white
+           bg-science-900 text-white font-mono text-xs font-bold
            opacity-0 scale-75 transition-all duration-200;
   }
 
@@ -91,74 +138,60 @@
   }
 
   /* ============================================
-     BOTTOM NAVIGATION
+     INPUTS - DESIGN TECHNIQUE
      ============================================ */
-  .bottom-nav {
-    @apply fixed bottom-0 left-0 right-0 z-50
-           bg-white/95 backdrop-blur-lg
-           border-t border-secondary-200
-           px-2 pb-safe;
-  }
-
-  .bottom-nav-item {
-    @apply flex flex-col items-center justify-center
-           py-2 px-3 rounded-lg
-           text-secondary-500 text-xs font-medium
+  .input {
+    @apply w-full px-4 py-3
+           bg-white border border-slate-200 rounded-md
+           text-text-primary font-sans
+           placeholder:text-text-muted
+           focus:outline-none focus:ring-2 focus:ring-science-900 focus:border-transparent
            transition-all duration-200;
   }
 
-  .bottom-nav-item.active {
-    @apply text-primary;
-  }
-
-  .bottom-nav-item .icon {
-    @apply w-6 h-6 mb-0.5;
-  }
-
   /* ============================================
-     BARRE DE PROGRESSION
+     PROGRESS BAR - DESIGN FIN
      ============================================ */
   .progress-bar {
-    @apply h-1.5 bg-secondary-200 rounded-full overflow-hidden;
+    @apply h-1 bg-slate-100 rounded-full overflow-hidden;
   }
 
   .progress-bar-fill {
-    @apply h-full bg-primary rounded-full transition-all duration-500 ease-out;
+    @apply h-full bg-science-900
+           rounded-full transition-all duration-700 ease-out;
   }
 
   /* ============================================
-     SAFE AREA (pour iPhone avec notch)
+     BADGES & LABELS
      ============================================ */
-  .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom, 0);
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1
+           bg-slate-100 text-science-900
+           font-mono text-xs font-bold uppercase tracking-wider
+           rounded-sm;
   }
 
-  .pt-safe {
-    padding-top: env(safe-area-inset-top, 0);
+  .badge-accent {
+    @apply bg-accent-50 text-accent-700;
+  }
+
+  .badge-success {
+    @apply bg-success-50 text-success-800;
   }
 
   /* ============================================
-     ANIMATIONS PERSONNALISÉES
+     TYPOGRAPHY - DESIGN TECHNIQUE
      ============================================ */
-  .shimmer {
-    @apply relative overflow-hidden;
+  .heading-tech {
+    @apply font-mono font-bold uppercase tracking-wider text-science-900;
   }
 
-  .shimmer::after {
-    content: '';
-    @apply absolute inset-0;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.4),
-      transparent
-    );
-    animation: shimmer 1.5s infinite;
+  .text-data {
+    @apply font-mono text-science-900;
   }
 
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+  .text-muted {
+    @apply text-text-muted font-sans;
   }
 }
 
@@ -171,10 +204,4 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-
-  /* Text gradient */
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
-  }
 }
-

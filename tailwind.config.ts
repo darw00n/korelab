@@ -10,37 +10,49 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Palette Korelab - Vibe "Organique & Scientifique"
-        primary: {
-          DEFAULT: '#B45309', // Amber-700 - Huile d'Argan/Terre
-          50: '#FFFBEB',
-          100: '#FEF3C7',
-          200: '#FDE68A',
-          300: '#FCD34D',
-          400: '#FBBF24',
-          500: '#F59E0B',
-          600: '#D97706',
-          700: '#B45309',
-          800: '#92400E',
-          900: '#78350F',
+        // Palette Science Snap - Clinique & Technique
+        // Fond Principal
+        background: '#FFFFFF', // White
+        'background-alt': '#F8FAFC', // Slate-50
+        
+        // Texte
+        'text-primary': '#0F172A', // Slate-900 (Noir encre)
+        'text-secondary': '#64748B', // Slate-500
+        'text-muted': '#94A3B8', // Slate-400
+        
+        // Couleur Science (Primaire)
+        science: {
+          DEFAULT: '#0F172A', // Science Blue (Bleu nuit profond)
+          50: '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
         },
-        secondary: {
-          DEFAULT: '#78716C', // Stone-500 - Ghassoul/Pierre
-          50: '#FAFAF9',
-          100: '#F5F5F4',
-          200: '#E7E5E4',
-          300: '#D6D3D1',
-          400: '#A8A29E',
-          500: '#78716C',
-          600: '#57534E',
-          700: '#44403C',
-          800: '#292524',
-          900: '#1C1917',
-        },
-        background: '#FAFAF9', // Stone-50 - Blanc cassé chaud
-        foreground: '#1C1917', // Stone-900
+        
+        // Accent (Action/Data)
         accent: {
-          DEFAULT: '#15803D', // Green-700 - Nature/Bio
+          DEFAULT: '#38BDF8', // Cyan électrique
+          50: '#ECFEFF',
+          100: '#CFFAFE',
+          200: '#A5F3FC',
+          300: '#67E8F9',
+          400: '#22D3EE',
+          500: '#38BDF8',
+          600: '#0EA5E9',
+          700: '#0284C7',
+          800: '#0369A1',
+          900: '#0C4A6E',
+        },
+        
+        // Success/Validation
+        success: {
+          DEFAULT: '#166534', // Green-800
           50: '#F0FDF4',
           100: '#DCFCE7',
           200: '#BBF7D0',
@@ -52,33 +64,40 @@ const config: Config = {
           800: '#166534',
           900: '#14532D',
         },
-        // Couleurs utilitaires
-        success: '#22C55E',
-        warning: '#F59E0B',
-        error: '#EF4444',
-        muted: {
-          DEFAULT: '#F5F5F4',
-          foreground: '#78716C',
+        
+        // Slate (Gris technique)
+        slate: {
+          50: '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
         },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-playfair)', 'Georgia', 'serif'],
+        mono: ['var(--font-space-mono)', 'monospace'],
       },
       borderRadius: {
-        lg: '1rem',
-        md: '0.75rem',
-        sm: '0.5rem',
+        none: '0',
+        sm: '0.125rem',
+        DEFAULT: '0.375rem', // rounded-md
+        md: '0.375rem',
+        lg: '0.5rem',
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
-        'elevated': '0 10px 40px -10px rgba(0, 0, 0, 0.1)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+        'elevated': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+        'fade-in': 'fadeIn 0.2s ease-out',
+        'slide-up': 'slideUp 0.2s ease-out',
+        'pulse-heart': 'pulseHeart 1.5s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -86,12 +105,12 @@ const config: Config = {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        pulseSoft: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.7' },
+        pulseHeart: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.7', transform: 'scale(1.1)' },
         },
       },
     },
