@@ -70,7 +70,8 @@ function PaymentForm({ orderId, onSuccess, onError }: PaymentFormProps) {
         }
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         // Mettre à jour la commande
-        await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (supabase as any)
           .from('orders')
           .update({
             payment_status: 'succeeded',

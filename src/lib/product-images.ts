@@ -75,7 +75,7 @@ function isValidImageUrl(url: string | null | undefined): boolean {
 export function getProductImageUrl(product: Product | { slug: string; name?: string; image_url?: string | null }): string | null {
   // Si le produit a déjà une image_url valide, l'utiliser
   if ('image_url' in product && isValidImageUrl(product.image_url)) {
-    return product.image_url;
+    return product.image_url || null;
   }
 
   // Sinon, utiliser notre mapping

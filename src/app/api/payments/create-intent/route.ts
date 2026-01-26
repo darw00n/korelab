@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     // Initialiser Stripe
     const stripe = new Stripe(stripeSecretKey, {
-      apiVersion: '2024-12-18.acacia',
+      apiVersion: '2025-12-15.clover',
     });
 
     const body = await request.json();

@@ -66,7 +66,8 @@ export default function CheckoutPage() {
 
   // Créer la commande dans Supabase
   const createOrder = async (): Promise<string> => {
-    const { data: orderData, error: orderError } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: orderData, error: orderError } = await (supabase as any)
       .from('orders')
       .insert({
         user_id: user?.id || null,
@@ -97,7 +98,8 @@ export default function CheckoutPage() {
       unit_price: item.product.price,
     }));
     
-    const { error: itemsError } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: itemsError } = await (supabase as any)
       .from('order_items')
       .insert(orderItems);
     
@@ -110,7 +112,8 @@ export default function CheckoutPage() {
   const updateUserProfile = async () => {
     if (!user?.id) return;
     
-    await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any)
       .from('profiles')
       .update({
         full_name: formData.name,

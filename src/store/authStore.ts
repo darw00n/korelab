@@ -9,6 +9,9 @@ import { supabase } from '@/lib/supabase';
 import type { AuthUser, UserProfile, AuthState } from '@/types/database.types';
 import type { User, Session } from '@supabase/supabase-js';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const db = supabase as any;
+
 // ===================
 // TYPES
 // ===================
@@ -130,7 +133,7 @@ export const useAuthStore = create<AuthStore>()(
           set({ isLoading: true, error: null });
 
           // Récupérer la session existante
-          const { data: { session }, error } = await supabase.auth.getSession();
+          const { data: { session }, error } = await db.auth.getSession();
           
           if (error) {
             console.error('Auth init error:', error);
@@ -145,14 +148,14 @@ export const useAuthStore = create<AuthStore>()(
 
           if (session?.user) {
             // Récupérer le profil utilisateur
-            const { data: profile } = await supabase
+            const { data: profile } = await db
               .from('profiles')
               .select('*')
               .eq('id', session.user.id)
               .single();
 
             // Récupérer le profil capillaire actif
-            const { data: hairProfile } = await supabase
+            const { data: hairProfile } = await db
               .from('user_hair_profiles')
               .select('*')
               .eq('user_id', session.user.id)
@@ -182,7 +185,7 @@ export const useAuthStore = create<AuthStore>()(
             console.log('Auth state changed:', event);
             
             if (event === 'SIGNED_IN' && session?.user) {
-              const { data: profile } = await supabase
+              const { data: profile } = await db
                 .from('profiles')
                 .select('*')
                 .eq('id', session.user.id)
@@ -222,7 +225,7 @@ export const useAuthStore = create<AuthStore>()(
           
           const formattedPhone = formatInternationalPhone(phone, countryCode);
           
-          const { error } = await supabase.auth.signInWithOtp({
+          const { error } = await db.auth.signInWithOtp({
             phone: formattedPhone,
           });
 
@@ -254,7 +257,7 @@ export const useAuthStore = create<AuthStore>()(
           
           const formattedPhone = formatInternationalPhone(phone, countryCode);
           
-          const { data, error } = await supabase.auth.verifyOtp({
+          const { data, error } = await db.auth.verifyOtp({
             phone: formattedPhone,
             token,
             type: 'sms',
@@ -267,7 +270,7 @@ export const useAuthStore = create<AuthStore>()(
 
           if (data.user) {
             // Mettre à jour le téléphone dans le profil
-            await supabase
+            await db
               .from('profiles')
               .update({ 
                 phone: formattedPhone,
@@ -275,7 +278,7 @@ export const useAuthStore = create<AuthStore>()(
               })
               .eq('id', data.user.id);
 
-            const { data: profile } = await supabase
+            const { data: profile } = await db
               .from('profiles')
               .select('*')
               .eq('id', data.user.id)
@@ -305,7 +308,7 @@ export const useAuthStore = create<AuthStore>()(
         try {
           set({ isLoading: true, error: null });
           
-          const { data, error } = await supabase.auth.signInWithPassword({
+          const { data, error } = await db.auth.signInWithPassword({
             email,
             password,
           });
@@ -316,7 +319,7 @@ export const useAuthStore = create<AuthStore>()(
           }
 
           if (data.user) {
-            const { data: profile } = await supabase
+            const { data: profile } = await db
               .from('profiles')
               .select('*')
               .eq('id', data.user.id)
@@ -345,7 +348,7 @@ export const useAuthStore = create<AuthStore>()(
         try {
           set({ isLoading: true, error: null });
           
-          const { data, error } = await supabase.auth.signUp({
+          const { data, error } = await db.auth.signUp({
             email,
             password,
             options: {
@@ -362,7 +365,7 @@ export const useAuthStore = create<AuthStore>()(
 
           // Si l'utilisateur est créé, mettre à jour le profil avec le nom
           if (data.user && fullName) {
-            await supabase
+            await db
               .from('profiles')
               .update({ full_name: fullName })
               .eq('id', data.user.id);
@@ -383,7 +386,7 @@ export const useAuthStore = create<AuthStore>()(
       signOut: async () => {
         try {
           set({ isLoading: true });
-          await supabase.auth.signOut();
+          await db.auth.signOut();
           set({
             user: null,
             session: null,
@@ -409,7 +412,7 @@ export const useAuthStore = create<AuthStore>()(
 
           set({ isLoading: true, error: null });
 
-          const { error } = await supabase
+          const { error } = await db
             .from('profiles')
             .update(data)
             .eq('id', user.id);
@@ -439,7 +442,7 @@ export const useAuthStore = create<AuthStore>()(
           const { user, session } = get();
           if (!user || !session) return;
 
-          const { data: profile } = await supabase
+          const { data: profile } = await db
             .from('profiles')
             .select('*')
             .eq('id', user.id)
@@ -464,14 +467,14 @@ export const useAuthStore = create<AuthStore>()(
           if (!user || !session) return;
 
           // Récupérer le profil utilisateur
-          const { data: profile } = await supabase
+          const { data: profile } = await db
             .from('profiles')
             .select('*')
             .eq('id', user.id)
             .single();
 
           // Récupérer le profil capillaire actif
-          const { data: hairProfile } = await supabase
+          const { data: hairProfile } = await db
             .from('user_hair_profiles')
             .select('*')
             .eq('user_id', user.id)

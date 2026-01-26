@@ -5,7 +5,7 @@
 // Inscription/Connexion par téléphone (OTP)
 // ============================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -29,10 +29,28 @@ import { useAuthStore } from '@/store/authStore';
 type AuthStep = 'phone' | 'otp' | 'name';
 
 // ===================
-// PAGE PRINCIPALE
+// PAGE PRINCIPALE (avec Suspense wrapper)
 // ===================
 
 export default function AuthPage() {
+  return (
+    <Suspense fallback={
+      <MobileShell showHeader={false} showBottomNav={false}>
+        <div className="min-h-screen bg-white flex items-center justify-center">
+          <Loader2 className="w-8 h-8 text-science-900 animate-spin" />
+        </div>
+      </MobileShell>
+    }>
+      <AuthPageContent />
+    </Suspense>
+  );
+}
+
+// ===================
+// CONTENU DE LA PAGE
+// ===================
+
+function AuthPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/';

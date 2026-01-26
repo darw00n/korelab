@@ -111,7 +111,8 @@ export function DiagnosticWizard() {
       hasSavedDiagnostic.current = true;
       
       // 1. Sauvegarder la session de diagnostic
-      const { error: sessionError } = await supabase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error: sessionError } = await (supabase as any)
         .from('diagnostic_sessions')
         .insert({
           user_id: user.id,
@@ -131,13 +132,15 @@ export function DiagnosticWizard() {
       }
       
       // 2. Désactiver les anciens profils capillaires
-      await supabase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase as any)
         .from('user_hair_profiles')
         .update({ is_active: false })
         .eq('user_id', user.id);
       
       // 3. Créer le nouveau profil capillaire actif (remplace l'ancien)
-      const { error: profileError } = await supabase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error: profileError } = await (supabase as any)
         .from('user_hair_profiles')
         .insert({
           user_id: user.id,

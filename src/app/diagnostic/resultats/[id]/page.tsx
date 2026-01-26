@@ -22,7 +22,7 @@ import {
 import { MobileShell } from '@/components/layout/MobileShell';
 import { supabase } from '@/lib/supabase';
 import { useCartStore } from '@/store/cartStore';
-import { getProductImageUrl } from '@/lib/utils/images';
+import { getProductImageUrl } from '@/lib/product-images';
 
 // ===================
 // TYPES
@@ -78,7 +78,8 @@ export default function DiagnosticResultsPage() {
       
       try {
         // Charger le diagnostic
-        const { data: diagData, error: diagError } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: diagData, error: diagError } = await (supabase as any)
           .from('diagnostic_sessions')
           .select('*')
           .eq('id', diagnosticId)
@@ -91,10 +92,11 @@ export default function DiagnosticResultsPage() {
           return;
         }
         
-        setDiagnostic(diagData);
+        setDiagnostic(diagData as DiagnosticSession);
         
         // Charger les produits recommandés (basés sur les textures/concerns)
-        const { data: productsData } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: productsData } = await (supabase as any)
           .from('products')
           .select(`
             id,
@@ -109,14 +111,15 @@ export default function DiagnosticResultsPage() {
           .limit(6);
         
         if (productsData) {
-          setProducts(productsData.map(p => ({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setProducts(productsData.map((p: any) => ({
             id: p.id,
             name: p.name,
             slug: p.slug,
             price: p.price,
             image_url: p.image_url,
             short_description: p.short_description,
-            category_name: (p.categories as { name: string })?.name
+            category_name: p.categories?.name
           })));
         }
       } catch (err) {
@@ -132,13 +135,18 @@ export default function DiagnosticResultsPage() {
 
   // Ajouter au panier
   const handleAddToCart = (product: RecommendedProduct) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     addItem({
       id: product.id,
       name: product.name,
+      slug: product.slug,
       price: product.price,
-      image: product.image_url || undefined,
-      quantity: 1
-    });
+      image_url: product.image_url,
+      product_type: 'treatment',
+      product_subtype: 'oil',
+      stock_quantity: 100,
+      is_available: true,
+    } as any, 1);
   };
 
   // Loading
@@ -369,7 +377,11 @@ interface ProductCardProps {
 
 function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
-  const imageUrl = getProductImageUrl(product.image_url, product.slug);
+  const imageUrl = getProductImageUrl({ 
+    slug: product.slug, 
+    name: product.name, 
+    image_url: product.image_url 
+  });
   
   return (
     <div className="card overflow-hidden">

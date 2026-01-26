@@ -40,14 +40,14 @@ export function RoutineTutorial() {
   // Ajouter un produit au panier
   const handleAddProduct = (product: ScoredProduct) => {
     addToCart(product, 1);
-    setAddedProducts(prev => new Set([...prev, product.id]));
+    setAddedProducts(prev => new Set([...Array.from(prev), product.id]));
   };
 
   // Ajouter tous les produits au panier
   const handleAddAll = () => {
     products.forEach(product => {
       addToCart(product, 1);
-      setAddedProducts(prev => new Set([...prev, product.id]));
+      setAddedProducts(prev => new Set([...Array.from(prev), product.id]));
     });
   };
 

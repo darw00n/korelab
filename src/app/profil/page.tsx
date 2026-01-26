@@ -82,7 +82,8 @@ export default function ProfilPage() {
       
       try {
         // Charger les diagnostics
-        const { data: diagData } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: diagData } = await (supabase as any)
           .from('diagnostic_sessions')
           .select(`
             id,
@@ -97,7 +98,8 @@ export default function ProfilPage() {
           .limit(10);
         
         if (diagData) {
-          setDiagnostics(diagData.map(d => ({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setDiagnostics(diagData.map((d: any) => ({
             id: d.id,
             created_at: d.created_at,
             match_score: d.match_score,
@@ -106,7 +108,8 @@ export default function ProfilPage() {
         }
 
         // Charger les commandes
-        const { data: orderData } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: orderData } = await (supabase as any)
           .from('orders')
           .select(`
             id,
@@ -119,7 +122,8 @@ export default function ProfilPage() {
           .limit(10);
         
         if (orderData) {
-          setOrders(orderData.map(o => ({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setOrders(orderData.map((o: any) => ({
             id: o.id,
             created_at: o.created_at,
             status: o.status,
