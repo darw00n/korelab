@@ -563,8 +563,8 @@ export default function CheckoutPage() {
                       Paiement sécurisé par Stripe
                     </p>
                     <div className="flex items-center gap-2 mt-2">
-                      <img src="/images/visa.svg" alt="Visa" className="h-4" onError={(e) => e.currentTarget.style.display = 'none'} />
-                      <img src="/images/mastercard.svg" alt="Mastercard" className="h-4" onError={(e) => e.currentTarget.style.display = 'none'} />
+                      <span className="px-1.5 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded">VISA</span>
+                      <span className="px-1.5 py-0.5 bg-orange-500 text-white text-[10px] font-bold rounded">MC</span>
                     </div>
                   </div>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
