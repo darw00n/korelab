@@ -52,11 +52,11 @@ interface ProductScore {
 
 /**
  * Règle 1: Produits INTERDITS selon porosité
- * - Porosité faible + Karité/Ricin en finish = INTERDIT
+ * - Porosité faible + Karité/Ricin/Olive/Fenugrec = INTERDIT (trop lourds)
  * - Porosité forte + Pépins de Raisin seul = pas efficace
  */
 const FORBIDDEN_COMBOS: Record<string, string[]> = {
-  'faible': ['beurre-karite', 'huile-ricin'], // Trop lourds pour cuticules fermées
+  'faible': ['beurre-karite', 'huile-ricin', 'huile-olive', 'macerat-fenugrec'], // Trop lourds pour cuticules fermées
 };
 
 /**
@@ -90,16 +90,39 @@ const CLEANSER_BY_SCALP: Record<string, string> = {
 
 /**
  * Règle 5: Treatment selon concern principal
+ * Inclut les nouveaux produits: hydrolats, macérats, actifs, HE
  */
 const TREATMENT_BY_CONCERN: Record<string, string[]> = {
-  'chute': ['huile-ricin', 'he-romarin'],
-  'pousse': ['huile-ricin', 'he-romarin'],
-  'pellicules': ['huile-nigelle'],
-  'casse': ['proteines-soie', 'huile-avocat'],
-  'secheresse': ['huile-avocat', 'gel-aloe-vera'],
-  'frisottis': ['huile-argan', 'gel-aloe-vera'],
-  'volume': ['ghassoul-atlas-pur'],
-  'brillance': ['huile-argan', 'proteines-soie'],
+  'chute': ['huile-ricin', 'he-romarin', 'macerat-fenugrec', 'macerat-oignon', 'hydrolat-romarin'],
+  'pousse': ['huile-ricin', 'he-romarin', 'macerat-fenugrec', 'hydrolat-romarin', 'hydrolat-menthe'],
+  'pellicules': ['huile-nigelle', 'he-tea-tree', 'macerat-ail', 'hydrolat-lavande'],
+  'casse': ['proteines-soie', 'huile-avocat', 'proteines-riz', 'panthenol-b5'],
+  'secheresse': ['huile-avocat', 'gel-aloe-vera', 'glycerine-vegetale', 'huile-olive', 'hydrolat-rose'],
+  'frisottis': ['huile-argan', 'gel-aloe-vera', 'glycerine-vegetale'],
+  'volume': ['ghassoul-atlas-pur', 'proteines-riz', 'hydrolat-sauge'],
+  'brillance': ['huile-argan', 'proteines-soie', 'he-orange', 'panthenol-b5'],
+};
+
+/**
+ * Règle 6: Hydrolats selon cuir chevelu (produits doux à pulvériser)
+ */
+const HYDROLAT_BY_SCALP: Record<string, string[]> = {
+  'gras': ['hydrolat-sauge', 'hydrolat-romarin', 'hydrolat-menthe'],
+  'sec': ['hydrolat-rose', 'hydrolat-lavande'],
+  'normal': ['hydrolat-rose', 'hydrolat-romarin'],
+  'sensible': ['hydrolat-rose', 'hydrolat-lavande'],
+};
+
+/**
+ * Règle 7: Huiles essentielles selon concern (usage expert, dilué)
+ * ⚠️ Interdit femmes enceintes/allaitantes
+ */
+const ESSENTIAL_OIL_BY_CONCERN: Record<string, string[]> = {
+  'chute': ['he-romarin'],
+  'pousse': ['he-romarin'],
+  'pellicules': ['he-tea-tree', 'he-lavande'],
+  'secheresse': ['he-lavande'],
+  'brillance': ['he-orange'],
 };
 
 // ===================

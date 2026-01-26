@@ -28,6 +28,7 @@ import type { Product } from '@/types/database.types';
 // ===================
 
 type FilterType = 'TOUS' | 'NETTOYANT' | 'TRAITEMENT' | 'FINITION';
+type SubtypeFilter = 'TOUS' | 'HUILES' | 'HYDROLATS' | 'MACERATS' | 'ACTIFS' | 'HE';
 
 // ===================
 // PAGE PRINCIPALE
@@ -36,6 +37,7 @@ type FilterType = 'TOUS' | 'NETTOYANT' | 'TRAITEMENT' | 'FINITION';
 export default function ShopPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<FilterType>('TOUS');
+  const [subtypeFilter, setSubtypeFilter] = useState<SubtypeFilter>('TOUS');
   
   const { products, isLoading, getProductCompatibility } = useMatchingEngine();
   const addToCart = useCartStore((state) => state.addItem);
@@ -65,6 +67,23 @@ export default function ShopPage() {
       }
     }
 
+    // Filtre par sous-type (uniquement pour traitements)
+    if (subtypeFilter !== 'TOUS' && (activeFilter === 'TRAITEMENT' || activeFilter === 'TOUS')) {
+      const subtypeMap: Record<SubtypeFilter, string[]> = {
+        'TOUS': [],
+        'HUILES': ['oil'],
+        'HYDROLATS': ['hydrolat'],
+        'MACERATS': ['macerat'],
+        'ACTIFS': ['active'],
+        'HE': ['essential_oil'],
+      };
+      
+      const subtypes = subtypeMap[subtypeFilter];
+      if (subtypes.length > 0) {
+        filtered = filtered.filter(p => subtypes.includes(p.product_subtype));
+      }
+    }
+
     // Recherche texte
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -77,9 +96,18 @@ export default function ShopPage() {
     }
 
     return filtered;
-  }, [products, activeFilter, searchQuery]);
+  }, [products, activeFilter, subtypeFilter, searchQuery]);
 
   const filters: FilterType[] = ['TOUS', 'NETTOYANT', 'TRAITEMENT', 'FINITION'];
+  const subtypeFilters: SubtypeFilter[] = ['TOUS', 'HUILES', 'HYDROLATS', 'MACERATS', 'ACTIFS', 'HE'];
+  
+  // Reset subtype filter when changing main filter
+  const handleFilterChange = (filter: FilterType) => {
+    setActiveFilter(filter);
+    if (filter !== 'TRAITEMENT' && filter !== 'TOUS') {
+      setSubtypeFilter('TOUS');
+    }
+  };
 
   return (
     <MobileShell showHeader={false} showBottomNav={true}>
@@ -118,12 +146,13 @@ export default function ShopPage() {
           </div>
 
           {/* Filtres (Scroll Horizontal) */}
-          <div className="px-4 pb-3">
+          <div className="px-4 pb-3 space-y-2">
+            {/* Filtres principaux */}
             <div className="flex gap-2 overflow-x-auto no-scrollbar">
               {filters.map((filter) => (
                 <button
                   key={filter}
-                  onClick={() => setActiveFilter(filter)}
+                  onClick={() => handleFilterChange(filter)}
                   className={`px-4 py-2 rounded-md font-mono text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-200 ${
                     activeFilter === filter
                       ? 'bg-science-900 text-white'
@@ -134,6 +163,25 @@ export default function ShopPage() {
                 </button>
               ))}
             </div>
+            
+            {/* Filtres par sous-type (visible pour Traitements ou Tous) */}
+            {(activeFilter === 'TRAITEMENT' || activeFilter === 'TOUS') && (
+              <div className="flex gap-2 overflow-x-auto no-scrollbar pt-1">
+                {subtypeFilters.map((filter) => (
+                  <button
+                    key={filter}
+                    onClick={() => setSubtypeFilter(filter)}
+                    className={`px-3 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-200 ${
+                      subtypeFilter === filter
+                        ? 'bg-accent-500 text-white'
+                        : 'bg-slate-100 text-text-secondary hover:bg-slate-200'
+                    }`}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </header>
 
@@ -174,88 +222,112 @@ interface ProductsListProps {
 }
 
 function ProductsList({ products, onAddToCart, hairProfile, getProductCompatibility }: ProductsListProps) {
-  // Grouper les produits par catégorie
+  // Grouper les produits par catégorie et sous-type
   const productsByCategory = {
     cleanser: products.filter(p => p.product_type === 'cleanser'),
-    treatment: products.filter(p => p.product_type === 'treatment'),
+    // Treatments groupés par sous-type
+    oils: products.filter(p => p.product_type === 'treatment' && p.product_subtype === 'oil'),
+    hydrolats: products.filter(p => p.product_type === 'treatment' && p.product_subtype === 'hydrolat'),
+    macerats: products.filter(p => p.product_type === 'treatment' && p.product_subtype === 'macerat'),
+    actives: products.filter(p => p.product_type === 'treatment' && p.product_subtype === 'active'),
+    essentialOils: products.filter(p => p.product_type === 'treatment' && p.product_subtype === 'essential_oil'),
+    // Autres traitements (masques, sérums, etc.)
+    otherTreatments: products.filter(p => 
+      p.product_type === 'treatment' && 
+      !['oil', 'hydrolat', 'macerat', 'active', 'essential_oil'].includes(p.product_subtype)
+    ),
     finish: products.filter(p => p.product_type === 'finish'),
   };
 
-  const hasProducts = Object.values(productsByCategory).some(cat => cat.length > 0);
+  const hasProducts = products.length > 0;
 
   if (!hasProducts) {
     return <EmptyState />;
   }
 
+  // Helper pour afficher une section
+  const renderSection = (title: string, items: Product[], subtitle?: string, warning?: string) => {
+    if (items.length === 0) return null;
+    return (
+      <div>
+        <div className="mb-3">
+          <h3 className="font-mono font-bold text-sm uppercase tracking-wider text-text-secondary">
+            {title}
+          </h3>
+          {subtitle && (
+            <p className="font-sans text-xs text-text-muted mt-1">{subtitle}</p>
+          )}
+          {warning && (
+            <p className="font-sans text-xs text-amber-600 mt-1">{warning}</p>
+          )}
+        </div>
+        <div className="space-y-3">
+          {items.map((product, index) => {
+            const compatibility = getProductCompatibility(product.id, hairProfile);
+            return (
+              <ProductCard
+                key={product.id}
+                product={product}
+                index={index}
+                onAddToCart={() => onAddToCart(product, 1)}
+                isRecommended={compatibility.isRecommended}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6">
       {/* NETTOYANTS */}
-      {productsByCategory.cleanser.length > 0 && (
-        <div>
-          <h3 className="font-mono font-bold text-sm uppercase tracking-wider text-text-secondary mb-3">
-            NETTOYANTS
-          </h3>
-          <div className="space-y-3">
-            {productsByCategory.cleanser.map((product, index) => {
-              const compatibility = getProductCompatibility(product.id, hairProfile);
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  index={index}
-                  onAddToCart={() => onAddToCart(product, 1)}
-                  isRecommended={compatibility.isRecommended}
-                />
-              );
-            })}
-          </div>
-        </div>
+      {renderSection('NETTOYANTS', productsByCategory.cleanser)}
+
+      {/* HUILES VÉGÉTALES */}
+      {renderSection(
+        'HUILES VÉGÉTALES', 
+        productsByCategory.oils,
+        'Bains d\'huile & soins cuir chevelu'
       )}
 
-      {/* TRAITEMENTS */}
-      {productsByCategory.treatment.length > 0 && (
-        <div>
-          <h3 className="font-mono font-bold text-sm uppercase tracking-wider text-text-secondary mb-3">
-            TRAITEMENTS
-          </h3>
-          <div className="space-y-3">
-            {productsByCategory.treatment.map((product, index) => {
-              const compatibility = getProductCompatibility(product.id, hairProfile);
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  index={index}
-                  onAddToCart={() => onAddToCart(product, 1)}
-                  isRecommended={compatibility.isRecommended}
-                />
-              );
-            })}
-          </div>
-        </div>
+      {/* HYDROLATS */}
+      {renderSection(
+        'HYDROLATS', 
+        productsByCategory.hydrolats,
+        'Eaux florales douces - Usage quotidien'
       )}
+
+      {/* MACÉRATS */}
+      {renderSection(
+        'MACÉRATS', 
+        productsByCategory.macerats,
+        'Huiles infusées aux plantes actives'
+      )}
+
+      {/* ACTIFS */}
+      {renderSection(
+        'ACTIFS', 
+        productsByCategory.actives,
+        'Ingrédients fonctionnels à ajouter aux soins'
+      )}
+
+      {/* HUILES ESSENTIELLES */}
+      {renderSection(
+        'HUILES ESSENTIELLES', 
+        productsByCategory.essentialOils,
+        'Actifs concentrés - Usage expert',
+        '⚠️ Interdit femmes enceintes/allaitantes'
+      )}
+
+      {/* AUTRES TRAITEMENTS */}
+      {renderSection('AUTRES TRAITEMENTS', productsByCategory.otherTreatments)}
 
       {/* FINITIONS */}
-      {productsByCategory.finish.length > 0 && (
-        <div>
-          <h3 className="font-mono font-bold text-sm uppercase tracking-wider text-text-secondary mb-3">
-            FINITIONS
-          </h3>
-          <div className="space-y-3">
-            {productsByCategory.finish.map((product, index) => {
-              const compatibility = getProductCompatibility(product.id, hairProfile);
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  index={index}
-                  onAddToCart={() => onAddToCart(product, 1)}
-                  isRecommended={compatibility.isRecommended}
-                />
-              );
-            })}
-          </div>
-        </div>
+      {renderSection(
+        'FINITIONS', 
+        productsByCategory.finish,
+        'Scellants & leave-in'
       )}
     </div>
   );

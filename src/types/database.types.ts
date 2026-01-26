@@ -32,7 +32,10 @@ export type ProductSubtype =
   | 'serum' 
   | 'active' 
   | 'gel' 
-  | 'leave_in';
+  | 'leave_in'
+  | 'hydrolat'
+  | 'macerat'
+  | 'essential_oil';
 
 export type Compatibility = 'recommended' | 'compatible' | 'not_recommended' | 'forbidden';
 
@@ -114,6 +117,8 @@ export interface Product {
   usage_instructions: string | null;
   expert_note: string | null;
   tags: string[] | null;
+  safety_warning: string | null;
+  is_pregnancy_safe: boolean;
   created_at: string;
   updated_at: string;
 }

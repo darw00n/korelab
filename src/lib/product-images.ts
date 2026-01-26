@@ -18,12 +18,36 @@ const PRODUCT_IMAGE_MAP: Record<string, string> = {
   'ghassoul-atlas-pur': '/product-images/ghassoul.webp',
   'shampoing-base-neutre': '/product-images/neutralphshampoo.webp',
   
-  // Traitements
+  // Traitements - Huiles Végétales
   'huile-ricin': '/product-images/Castoroil.webp',
   'huile-nigelle': '/product-images/blackseedoil.webp',
   'huile-avocat': '/product-images/avocado.webp',
+  'huile-olive': '/product-images/placeholder-oil.webp',
+  
+  // Traitements - Actifs
   'proteines-soie': '/product-images/silkprotein.webp',
+  'proteines-riz': '/product-images/placeholder-active.webp',
+  'panthenol-b5': '/product-images/placeholder-active.webp',
+  'glycerine-vegetale': '/product-images/placeholder-active.webp',
+  
+  // Traitements - Huiles Essentielles
   'he-romarin': '/product-images/rosemary.webp',
+  'he-tea-tree': '/product-images/placeholder-he.webp',
+  'he-lavande': '/product-images/placeholder-he.webp',
+  'he-eucalyptus': '/product-images/placeholder-he.webp',
+  'he-orange': '/product-images/placeholder-he.webp',
+  
+  // Traitements - Hydrolats
+  'hydrolat-rose': '/product-images/placeholder-hydrolat.webp',
+  'hydrolat-romarin': '/product-images/placeholder-hydrolat.webp',
+  'hydrolat-lavande': '/product-images/placeholder-hydrolat.webp',
+  'hydrolat-sauge': '/product-images/placeholder-hydrolat.webp',
+  'hydrolat-menthe': '/product-images/placeholder-hydrolat.webp',
+  
+  // Traitements - Macérats
+  'macerat-fenugrec': '/product-images/placeholder-macerat.webp',
+  'macerat-oignon': '/product-images/placeholder-macerat.webp',
+  'macerat-ail': '/product-images/placeholder-macerat.webp',
   
   // Finitions
   'huile-argan': '/product-images/argan.webp',
@@ -34,17 +58,41 @@ const PRODUCT_IMAGE_MAP: Record<string, string> = {
 
 // Mapping par mots-clés dans le nom (fallback)
 const PRODUCT_NAME_KEYWORDS: Array<{ keywords: string[]; image: string }> = [
+  // Nettoyants
   { keywords: ['ghassoul'], image: '/product-images/ghassoul.webp' },
   { keywords: ['shampoing', 'neutre', 'base'], image: '/product-images/neutralphshampoo.webp' },
+  
+  // Huiles végétales
   { keywords: ['ricin', 'castor'], image: '/product-images/Castoroil.webp' },
   { keywords: ['nigelle', 'black seed', 'habba'], image: '/product-images/blackseedoil.webp' },
   { keywords: ['avocat'], image: '/product-images/avocado.webp' },
-  { keywords: ['protéine', 'soie', 'silk'], image: '/product-images/silkprotein.webp' },
-  { keywords: ['romarin'], image: '/product-images/rosemary.webp' },
+  { keywords: ['olive'], image: '/product-images/placeholder-oil.webp' },
   { keywords: ['argan'], image: '/product-images/argan.webp' },
   { keywords: ['pépins', 'raisin', 'grapeseed'], image: '/product-images/grapeseed.webp' },
   { keywords: ['karité', 'karite', 'shea'], image: '/product-images/sheabutter.webp' },
+  
+  // Actifs
+  { keywords: ['protéine', 'soie', 'silk'], image: '/product-images/silkprotein.webp' },
+  { keywords: ['protéine', 'riz', 'rice'], image: '/product-images/placeholder-active.webp' },
+  { keywords: ['panthénol', 'panthenol', 'b5'], image: '/product-images/placeholder-active.webp' },
+  { keywords: ['glycérine', 'glycerine'], image: '/product-images/placeholder-active.webp' },
   { keywords: ['aloe', 'aloe vera'], image: '/product-images/aloeavera.webp' },
+  
+  // Huiles essentielles
+  { keywords: ['romarin', 'rosemary'], image: '/product-images/rosemary.webp' },
+  { keywords: ['tea tree', 'arbre à thé'], image: '/product-images/placeholder-he.webp' },
+  { keywords: ['lavande'], image: '/product-images/placeholder-he.webp' },
+  { keywords: ['eucalyptus'], image: '/product-images/placeholder-he.webp' },
+  { keywords: ['orange'], image: '/product-images/placeholder-he.webp' },
+  
+  // Hydrolats
+  { keywords: ['hydrolat', 'eau florale'], image: '/product-images/placeholder-hydrolat.webp' },
+  
+  // Macérats
+  { keywords: ['macérat', 'macerat'], image: '/product-images/placeholder-macerat.webp' },
+  { keywords: ['fenugrec'], image: '/product-images/placeholder-macerat.webp' },
+  { keywords: ['oignon'], image: '/product-images/placeholder-macerat.webp' },
+  { keywords: ['ail'], image: '/product-images/placeholder-macerat.webp' },
 ];
 
 // ===================
