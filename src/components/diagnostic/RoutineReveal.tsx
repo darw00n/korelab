@@ -26,7 +26,7 @@ export function RoutineReveal() {
     );
   }
 
-  const { products, matchScore, finalPrice, totalPrice, discountAmount, profile } = results;
+  const { products, additionalProducts, matchScore, finalPrice, totalPrice, discountAmount, profile } = results;
 
   // Ajouter tous les produits au panier
   const handleAddToCart = () => {
@@ -115,6 +115,39 @@ export function RoutineReveal() {
         </motion.div>
       </div>
 
+      {/* Produits Complémentaires */}
+      {additionalProducts && additionalProducts.length > 0 && (
+        <div className="mx-4 mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="card p-6"
+          >
+            <div className="mb-4">
+              <span className="badge badge-secondary mb-2">POUR ALLER PLUS LOIN</span>
+              <h2 className="font-mono text-lg font-bold uppercase tracking-wider text-science-900 mt-2">
+                SOINS COMPLÉMENTAIRES
+              </h2>
+              <p className="font-sans text-sm text-text-secondary mt-1">
+                Produits recommandés pour optimiser vos résultats
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {additionalProducts.map((product, index) => (
+                <AdditionalProductItem
+                  key={product.id}
+                  product={product}
+                  delay={0.7 + index * 0.1}
+                  onAddToCart={() => addToCart(product, 1)}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* CTA Sticky */}
       <motion.div
         initial={{ y: 100 }}
@@ -195,6 +228,53 @@ function ProductItem({ product, stepNumber, delay }: ProductItemProps) {
               {product.reason}
             </span>
           )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ===================
+// ADDITIONAL PRODUCT ITEM
+// ===================
+
+interface AdditionalProductItemProps {
+  product: ScoredProduct;
+  delay: number;
+  onAddToCart: () => void;
+}
+
+function AdditionalProductItem({ product, delay, onAddToCart }: AdditionalProductItemProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay }}
+      className="flex gap-3 p-3 border border-accent-200 bg-accent-50/30 rounded-md"
+    >
+      {/* Badge recommandé */}
+      <div className="flex-shrink-0 w-8 h-8 bg-accent-500 text-white rounded-sm flex items-center justify-center">
+        <span className="font-mono text-xs font-bold">+</span>
+      </div>
+
+      {/* Infos produit */}
+      <div className="flex-1 min-w-0">
+        <h3 className="font-mono font-bold text-sm text-science-900 mb-1">
+          {product.name}
+        </h3>
+        <p className="font-sans text-xs text-text-secondary mb-2 line-clamp-1">
+          {product.short_description || product.description}
+        </p>
+        <div className="flex items-center justify-between">
+          <span className="font-mono font-bold text-sm text-science-900">
+            {product.price} DH
+          </span>
+          <button
+            onClick={onAddToCart}
+            className="btn-secondary text-xs py-1 px-3"
+          >
+            + Ajouter
+          </button>
         </div>
       </div>
     </motion.div>

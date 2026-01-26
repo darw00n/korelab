@@ -396,7 +396,10 @@ export function generateHairRoutine(
   
   // ÉTAPE 2: TRAITER - Basé sur les concerns
   const treatmentScores = treatments.map(p => scoreTreatment(p, profile, data));
-  const bestTreatment = selectBest(treatmentScores);
+  const sortedTreatments = treatmentScores
+    .filter(s => s.compatibility !== 'forbidden' && s.totalScore > -50)
+    .sort((a, b) => b.totalScore - a.totalScore);
+  const bestTreatment = sortedTreatments[0] || null;
   
   // ÉTAPE 3: SCELLER/NOURRIR - Basé sur porosité + texture
   const finishScores = finishes.map(p => scoreFinish(p, profile, data));
@@ -408,7 +411,7 @@ export function generateHairRoutine(
     return null;
   }
   
-  // Construire les produits scorés
+  // Construire les produits scorés principaux
   const routine: ScoredProduct[] = [
     {
       ...bestCleanser.product,
@@ -433,6 +436,18 @@ export function generateHairRoutine(
     },
   ];
   
+  // PRODUITS COMPLÉMENTAIRES: Top 3 traitements additionnels (score > 5)
+  const additionalProducts: ScoredProduct[] = sortedTreatments
+    .slice(1, 4) // Prendre les 3 suivants après le meilleur
+    .filter(s => s.totalScore > 5) // Score minimum pour être recommandé
+    .map(s => ({
+      ...s.product,
+      score: s.totalScore,
+      step: 'treatment' as const,
+      reason: s.reason || 'Recommandé pour votre profil',
+      compatibility: s.compatibility,
+    }));
+  
   // Calculer les prix
   const totalPrice = routine.reduce((sum, p) => sum + p.price, 0);
   const discountPercent = 10;
@@ -454,6 +469,7 @@ export function generateHairRoutine(
   
   return {
     products: routine,
+    additionalProducts: additionalProducts.length > 0 ? additionalProducts : undefined,
     totalPrice,
     discountPercent,
     discountAmount,

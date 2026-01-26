@@ -182,6 +182,7 @@ export interface ScoredProduct extends Product {
 
 export interface HairRoutineRecommendation {
   products: ScoredProduct[];
+  additionalProducts?: ScoredProduct[]; // Produits complémentaires recommandés
   totalPrice: number;
   discountPercent: number;
   discountAmount: number;
