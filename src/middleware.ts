@@ -59,11 +59,13 @@ function checkRateLimit(key: string, config: RateLimitConfig): { allowed: boolea
   // Nettoyer les anciennes entrées (toutes les 100 requêtes)
   if (rateLimitMap.size > 10000) {
     const cutoff = now - 300000; // 5 minutes
-    for (const [k, v] of rateLimitMap.entries()) {
-      if (v.timestamp < cutoff) {
+    const keys = Array.from(rateLimitMap.keys());
+    keys.forEach((k) => {
+      const v = rateLimitMap.get(k);
+      if (v && v.timestamp < cutoff) {
         rateLimitMap.delete(k);
       }
-    }
+    });
   }
 
   if (!record || now - record.timestamp > config.windowMs) {
