@@ -12,10 +12,11 @@ import { useDiagnosticStore } from '@/store/diagnosticStore';
 import { useTranslation } from '@/lib/i18n/context';
 import { useCartStore } from '@/store/cartStore';
 import { getProductImageUrl } from '@/lib/product-images';
+import { AIAnalysisCard } from './AIAnalysisCard';
 import type { ScoredProduct } from '@/types/database.types';
 
 export function RoutineTutorial() {
-  const { results } = useDiagnosticStore();
+  const { results, answers } = useDiagnosticStore();
   const { t } = useTranslation();
   const addToCart = useCartStore((state) => state.addItem);
   const [addedProducts, setAddedProducts] = useState<Set<string>>(new Set());
@@ -29,6 +30,16 @@ export function RoutineTutorial() {
   }
 
   const { products, matchScore, profile } = results;
+  
+  // Get user's free text input for AI analysis
+  const userProblemDescription = answers.userProblemDescription;
+  const userDesiredSolution = answers.userDesiredSolution;
+  
+  // Prepare products for AI analysis
+  const productsForAI = products.map(p => ({
+    name: p.name,
+    type: p.product_type,
+  }));
 
   // Grouper les produits par catégorie
   const productsByCategory = {
@@ -115,6 +126,15 @@ export function RoutineTutorial() {
 
       {/* Contenu scrollable */}
       <div className="px-4 space-y-6 pb-8">
+        {/* AI Analysis Card */}
+        <AIAnalysisCard
+          profile={profile}
+          userProblemDescription={userProblemDescription}
+          userDesiredSolution={userDesiredSolution}
+          products={productsForAI}
+          delay={0.25}
+        />
+
         {/* Section Matin */}
         <RoutineSection
           title="MATIN"

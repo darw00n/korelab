@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="hairGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4a574"/>
+      <stop offset="100%" style="stop-color:#b8956a"/>
+    </linearGradient>
+    <linearGradient id="healthyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e8c49a"/>
+      <stop offset="100%" style="stop-color:#d4a574"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="450" fill="#f8f6f3"/>
+  
+  <!-- Left Section: Medium Porosity Hair -->
+  <g transform="translate(50, 80)">
+    <!-- Title -->
+    <text x="100" y="0" font-family="monospace" font-size="14" fill="#1e3a5f" font-weight="bold">POROSIT� MOYENNE</text>
+    
+    <!-- Hair strand cross-section -->
+    <ellipse cx="100" cy="120" rx="80" ry="25" fill="url(#hairGradient)" stroke="#8b5e34" stroke-width="2"/>
+    
+    <!-- Slightly raised cuticle scales -->
+    <path d="M30 112 Q50 106 70 115" stroke="#8b5e34" stroke-width="2" fill="none"/>
+    <path d="M55 112 Q75 106 95 115" stroke="#8b5e34" stroke-width="2" fill="none"/>
+    <path d="M80 112 Q100 106 120 115" stroke="#8b5e34" stroke-width="2" fill="none"/>
+    <path d="M105 112 Q125 106 145 115" stroke="#8b5e34" stroke-width="2" fill="none"/>
+    <path d="M130 112 Q150 106 170 115" stroke="#8b5e34" stroke-width="2" fill="none"/>
+    
+    <!-- Water droplets entering -->
+    <circle cx="70" cy="80" r="6" fill="#87CEEB" opacity="0.8"/>
+    <circle cx="100" cy="75" r="7" fill="#87CEEB" opacity="0.8"/>
+    <circle cx="130" cy="82" r="6" fill="#87CEEB" opacity="0.8"/>
+    
+    <!-- Arrows showing absorption -->
+    <path d="M70 86 L75 102" stroke="#87CEEB" stroke-width="2"/>
+    <path d="M100 82 L100 100" stroke="#87CEEB" stroke-width="2"/>
+    <path d="M130 88 L125 102" stroke="#87CEEB" stroke-width="2"/>
+    
+    <!-- Label -->
+    <text x="100" y="200" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">Cuticules �quilibr�es</text>
+    <text x="100" y="215" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">Absorption optimale</text>
+  </g>
+  
+  <!-- Center: Transformation Arrow -->
+  <g transform="translate(300, 150)">
+    <!-- Arrow body -->
+    <rect x="0" y="50" width="200" height="20" fill="#1e3a5f" rx="5"/>
+    <!-- Arrow head -->
+    <polygon points="200,40 240,60 200,80" fill="#1e3a5f"/>
+    
+    <!-- Balance icon on arrow -->
+    <circle cx="100" cy="60" r="25" fill="#22c55e"/>
+    <text x="100" y="67" font-family="sans-serif" font-size="20" fill="#fff" text-anchor="middle">�</text>
+    
+    <!-- Balance symbol -->
+  </g>
+  
+  <!-- Right Section: Healthy Hair -->
+  <g transform="translate(550, 80)">
+    <!-- Title -->
+    <text x="100" y="0" font-family="monospace" font-size="14" fill="#1e3a5f" font-weight="bold">R�SULTAT</text>
+    
+    <!-- Healthy hair strand with shine -->
+    <ellipse cx="100" cy="120" rx="80" ry="25" fill="url(#healthyGradient)" stroke="#8b5e34" stroke-width="2"/>
+    
+    <!-- Shine effect -->
+    <ellipse cx="80" cy="110" rx="35" ry="10" fill="#fff" opacity="0.5"/>
+    
+    <!-- Smooth cuticle scales -->
+    <path d="M30 117 Q50 114 70 117" stroke="#8b5e34" stroke-width="1.5" fill="none"/>
+    <path d="M55 117 Q75 114 95 117" stroke="#8b5e34" stroke-width="1.5" fill="none"/>
+    <path d="M80 117 Q100 114 120 117" stroke="#8b5e34" stroke-width="1.5" fill="none"/>
+    <path d="M105 117 Q125 114 145 117" stroke="#8b5e34" stroke-width="1.5" fill="none"/>
+    <path d="M130 117 Q150 114 170 117" stroke="#8b5e34" stroke-width="1.5" fill="none"/>
+    
+    <!-- Sparkle effects -->
+    <circle cx="60" cy="90" r="4" fill="#22c55e"/>
+    <circle cx="140" cy="92" r="4" fill="#22c55e"/>
+    <circle cx="100" cy="85" r="5" fill="#d4a574"/>
+    
+    <!-- Label -->
+    <text x="100" y="200" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">�quilibre parfait</text>
+    <text x="100" y="215" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">Souplesse et brillance</text>
+  </g>
+  
+  <!-- Bottom: Timeline -->
+  <g transform="translate(100, 350)">
+    <!-- Line -->
+    <line x1="0" y1="30" x2="600" y2="30" stroke="#1e3a5f" stroke-width="2"/>
+    
+    <!-- Week markers -->
+    <circle cx="0" cy="30" r="12" fill="#1e3a5f"/>
+    <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">Semaine 1</text>
+    
+    <circle cx="300" cy="30" r="12" fill="#22c55e"/>
+    <text x="300" y="60" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">Semaine 3</text>
+    
+    <circle cx="600" cy="30" r="12" fill="#22c55e"/>
+    <text x="600" y="60" font-family="sans-serif" font-size="11" fill="#666" text-anchor="middle">Semaine 6</text>
+    
+    <!-- Check marks -->
+    <text x="0" y="35" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">1</text>
+    <text x="300" y="35" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle"></text>
+    <text x="600" y="35" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle"></text>
+  </g>
+</svg>

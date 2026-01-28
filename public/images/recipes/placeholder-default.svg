@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f6f3"/>
+      <stop offset="100%" style="stop-color:#f0ebe5"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGrad)"/>
+  
+  <!-- Top Section: Ingredient Icons -->
+  <g transform="translate(50, 30)">
+    <!-- Bottle 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="15" y="10" width="30" height="40" rx="3" fill="#1e3a5f" opacity="0.2"/>
+      <rect x="20" y="0" width="20" height="12" rx="2" fill="#1e3a5f" opacity="0.3"/>
+      <circle cx="30" cy="60" r="12" fill="#d4a574" opacity="0.6"/>
+      <text x="30" y="64" text-anchor="middle" font-size="10" fill="#1e3a5f" font-family="monospace">40%</text>
+    </g>
+    
+    <!-- Dropper 2 -->
+    <g transform="translate(100, 0)">
+      <rect x="20" y="15" width="20" height="35" rx="3" fill="#1e3a5f" opacity="0.2"/>
+      <path d="M25 5 L35 5 L32 15 L28 15 Z" fill="#1e3a5f" opacity="0.3"/>
+      <circle cx="30" cy="60" r="12" fill="#d4a574" opacity="0.6"/>
+      <text x="30" y="64" text-anchor="middle" font-size="10" fill="#1e3a5f" font-family="monospace">35%</text>
+    </g>
+    
+    <!-- Jar 3 -->
+    <g transform="translate(200, 0)">
+      <rect x="10" y="15" width="40" height="35" rx="5" fill="#1e3a5f" opacity="0.2"/>
+      <rect x="15" y="10" width="30" height="8" rx="2" fill="#1e3a5f" opacity="0.3"/>
+      <circle cx="30" cy="60" r="12" fill="#d4a574" opacity="0.6"/>
+      <text x="30" y="64" text-anchor="middle" font-size="10" fill="#1e3a5f" font-family="monospace">25%</text>
+    </g>
+  </g>
+  
+  <!-- Middle Section: Mixing Bowl -->
+  <g transform="translate(200, 200)">
+    <!-- Bowl shadow -->
+    <ellipse cx="0" cy="50" rx="100" ry="20" fill="#1e3a5f" opacity="0.1"/>
+    
+    <!-- Bowl -->
+    <ellipse cx="0" cy="0" rx="90" ry="30" fill="#f0f0f0" stroke="#1e3a5f" stroke-width="2"/>
+    <path d="M-90 0 Q-95 50 -70 70 Q0 90 70 70 Q95 50 90 0" fill="#f5f5f5" stroke="#1e3a5f" stroke-width="2"/>
+    
+    <!-- Mixture swirl -->
+    <ellipse cx="0" cy="10" rx="70" ry="20" fill="#d4a574" opacity="0.4"/>
+    <path d="M-50 5 Q-20 -10 0 5 Q20 20 50 5" stroke="#d4a574" stroke-width="3" fill="none" opacity="0.6"/>
+    <path d="M-40 15 Q0 30 40 15" stroke="#1e3a5f" stroke-width="2" fill="none" opacity="0.3"/>
+    
+    <!-- Mixing motion lines -->
+    <path d="M-100 -20 Q-110 -10 -100 0" stroke="#1e3a5f" stroke-width="1" fill="none" opacity="0.3"/>
+    <path d="M100 -20 Q110 -10 100 0" stroke="#1e3a5f" stroke-width="1" fill="none" opacity="0.3"/>
+  </g>
+  
+  <!-- Bottom Section: Final Product -->
+  <g transform="translate(200, 340)">
+    <!-- Bottle -->
+    <rect x="-25" y="-30" width="50" height="50" rx="5" fill="#1e3a5f" opacity="0.15"/>
+    <rect x="-15" y="-40" width="30" height="12" rx="3" fill="#1e3a5f" opacity="0.2"/>
+    
+    <!-- Shine effect -->
+    <rect x="-20" y="-25" width="8" height="30" rx="2" fill="white" opacity="0.3"/>
+    
+    <!-- Sparkles -->
+    <circle cx="-50" cy="-20" r="3" fill="#d4a574"/>
+    <circle cx="50" cy="-15" r="2" fill="#d4a574"/>
+    <circle cx="40" cy="-35" r="2.5" fill="#d4a574"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="350" r="4" fill="#d4a574" opacity="0.5"/>
+  <circle cx="350" cy="50" r="3" fill="#d4a574" opacity="0.5"/>
+  <circle cx="370" cy="300" r="5" fill="#1e3a5f" opacity="0.1"/>
+</svg>

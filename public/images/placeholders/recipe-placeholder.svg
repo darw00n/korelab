@@ -1,0 +1,87 @@
+<svg width="600" height="800" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="800" fill="#f8fafc"/>
+  
+  <!-- Header area -->
+  <rect x="40" y="40" width="520" height="100" rx="8" fill="#1e3a5f"/>
+  <text x="300" y="85" font-family="serif" font-size="28" fill="white" text-anchor="middle" font-weight="bold">
+    RECETTE DIY
+  </text>
+  <text x="300" y="115" font-family="sans-serif" font-size="14" fill="#d4a574" text-anchor="middle">
+    Soin Capillaire Maison
+  </text>
+  
+  <!-- Difficulty stars -->
+  <g transform="translate(250, 160)">
+    <circle cx="20" cy="0" r="12" fill="#d4a574"/>
+    <circle cx="50" cy="0" r="12" fill="#d4a574"/>
+    <circle cx="80" cy="0" r="12" fill="#e2e8f0"/>
+  </g>
+  
+  <!-- Ingredients section -->
+  <text x="60" y="220" font-family="monospace" font-size="12" fill="#64748b" text-transform="uppercase">
+    INGRÉDIENTS
+  </text>
+  
+  <!-- Ingredient icons placeholder -->
+  <g transform="translate(60, 240)">
+    <rect width="140" height="140" rx="8" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+    <circle cx="70" cy="70" r="40" fill="#e2e8f0"/>
+    <text x="70" y="115" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Ingrédient 1
+    </text>
+  </g>
+  
+  <g transform="translate(220, 240)">
+    <rect width="140" height="140" rx="8" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+    <circle cx="70" cy="70" r="40" fill="#e2e8f0"/>
+    <text x="70" y="115" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Ingrédient 2
+    </text>
+  </g>
+  
+  <g transform="translate(380, 240)">
+    <rect width="140" height="140" rx="8" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+    <circle cx="70" cy="70" r="40" fill="#e2e8f0"/>
+    <text x="70" y="115" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Ingrédient 3
+    </text>
+  </g>
+  
+  <!-- Tools section -->
+  <text x="60" y="430" font-family="monospace" font-size="12" fill="#64748b">
+    OUTILS NÉCESSAIRES
+  </text>
+  
+  <g transform="translate(60, 450)">
+    <rect width="80" height="80" rx="8" fill="#f1f5f9"/>
+    <circle cx="40" cy="40" r="25" fill="#e2e8f0"/>
+  </g>
+  <g transform="translate(160, 450)">
+    <rect width="80" height="80" rx="8" fill="#f1f5f9"/>
+    <circle cx="40" cy="40" r="25" fill="#e2e8f0"/>
+  </g>
+  <g transform="translate(260, 450)">
+    <rect width="80" height="80" rx="8" fill="#f1f5f9"/>
+    <circle cx="40" cy="40" r="25" fill="#e2e8f0"/>
+  </g>
+  
+  <!-- Result section -->
+  <text x="60" y="580" font-family="monospace" font-size="12" fill="#64748b">
+    RÉSULTAT
+  </text>
+  
+  <g transform="translate(200, 600)">
+    <rect x="0" y="0" width="200" height="140" rx="12" fill="#d4a574" opacity="0.2"/>
+    <ellipse cx="100" cy="70" rx="60" ry="50" fill="#d4a574" opacity="0.4"/>
+    <text x="100" y="130" font-family="sans-serif" font-size="11" fill="#8b5e34" text-anchor="middle">
+      Produit final
+    </text>
+  </g>
+  
+  <!-- Time badge -->
+  <rect x="460" y="50" width="80" height="30" rx="15" fill="#d4a574"/>
+  <text x="500" y="70" font-family="monospace" font-size="11" fill="white" text-anchor="middle">
+    ñ XX min
+  </text>
+</svg>

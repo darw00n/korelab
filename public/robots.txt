@@ -1,0 +1,14 @@
+# KORELAB - robots.txt
+# https://korelab.ma/robots.txt
+
+User-agent: *
+Allow: /
+
+# Pages privées
+Disallow: /api/
+Disallow: /profil/
+Disallow: /checkout/
+Disallow: /auth/
+
+# Sitemap
+Sitemap: https://korelab.ma/sitemap.xml

@@ -225,6 +225,7 @@ export type DiagnosticStep =
   | 'porosity' 
   | 'scalp' 
   | 'concerns' 
+  | 'freetext'
   | 'loading'
   | 'results';
 
@@ -233,6 +234,8 @@ export interface DiagnosticAnswers {
   porosityId?: string;
   scalpTypeId?: string;
   concernIds?: string[];
+  userProblemDescription?: string;
+  userDesiredSolution?: string;
 }
 
 // ===================
@@ -348,4 +351,119 @@ export interface DiagnosticHistoryItem extends DiagnosticSession {
   name: string | null;
   is_complete: boolean;
   completed_at: string | null;
+}
+
+// ===================
+// DIY RECIPES
+// ===================
+
+export type RecipeDifficulty = 'debutant' | 'intermediaire' | 'expert';
+
+export type RecipeType = 
+  | 'spray'
+  | 'masque'
+  | 'bain_huile'
+  | 'serum'
+  | 'leave_in'
+  | 'beurre'
+  | 'pre_poo'
+  | 'rinse';
+
+export interface DIYTool {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  short_description: string | null;
+  price: number;
+  image_url: string | null;
+  is_available: boolean;
+  is_in_starter_kit: boolean;
+  usage_tip: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Recipe {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  short_description: string | null;
+  recipe_type: RecipeType;
+  difficulty: RecipeDifficulty;
+  prep_time_minutes: number;
+  application_time_minutes: number | null;
+  frequency: string | null;
+  shelf_life_days: number;
+  storage_instructions: string | null;
+  yield_ml: number | null;
+  yield_applications: number | null;
+  image_url: string | null;
+  color_hex: string | null;
+  icon: string | null;
+  target_porosities: string[];
+  target_textures: string[];
+  target_concerns: string[];
+  target_scalp_types: string[];
+  benefits: string[];
+  warnings: string[];
+  is_published: boolean;
+  is_featured: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface RecipeIngredient {
+  id: string;
+  recipe_id: string;
+  product_id: string;
+  quantity_value: number;
+  quantity_unit: string;
+  percentage: number | null;
+  role: string | null;
+  is_optional: boolean;
+  substitution_note: string | null;
+  step_order: number;
+  // Joined product data
+  product?: Product;
+}
+
+export interface RecipeStep {
+  id: string;
+  recipe_id: string;
+  step_number: number;
+  title: string;
+  instruction: string;
+  tip: string | null;
+  duration_seconds: number | null;
+  image_url: string | null;
+  icon: string | null;
+}
+
+export interface RecipeTool {
+  id: string;
+  recipe_id: string;
+  tool_id: string;
+  is_essential: boolean;
+  quantity: number;
+  usage_note: string | null;
+  // Joined tool data
+  tool?: DIYTool;
+}
+
+export interface RecipeWithDetails extends Recipe {
+  ingredients: RecipeIngredient[];
+  steps: RecipeStep[];
+  tools: RecipeTool[];
+}
+
+export interface UserSavedRecipe {
+  id: string;
+  user_id: string;
+  recipe_id: string;
+  notes: string | null;
+  rating: number | null;
+  last_made_at: string | null;
+  created_at: string;
 }

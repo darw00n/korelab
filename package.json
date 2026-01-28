@@ -12,9 +12,12 @@
     "db:types": "npx supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/types/database.types.ts"
   },
   "dependencies": {
+    "@sentry/nextjs": "^10.37.0",
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.6.4",
     "@supabase/supabase-js": "^2.86.2",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^12.23.25",
@@ -22,6 +25,7 @@
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "resend": "^6.9.1",
     "stripe": "^20.2.0",
     "tailwind-merge": "^2.3.0",
     "zustand": "^4.5.0"

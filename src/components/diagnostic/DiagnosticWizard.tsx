@@ -24,9 +24,10 @@ import { StepTexture } from './steps/StepTexture';
 import { StepScalp } from './steps/StepScalp';
 import { StepPorosity } from './steps/StepPorosity';
 import { StepConcerns } from './steps/StepConcerns';
+import { StepFreeText } from './steps/StepFreeText';
 import { StepLoading } from './steps/StepLoading';
 import { StepAuthRequired } from './steps/StepAuthRequired';
-import { RoutineTutorial } from './RoutineTutorial';
+import { ResultsPageEducation } from './ResultsPageEducation';
 
 // ===================
 // ANIMATION VARIANTS
@@ -303,6 +304,9 @@ export function DiagnosticWizard() {
       case 'concerns':
         return <StepConcerns onNext={handleNext} concerns={concerns} />;
       
+      case 'freetext':
+        return <StepFreeText onNext={handleNext} />;
+      
       case 'results':
         // Afficher loading, auth, ou résultats
         if (isCalculating) {
@@ -321,7 +325,7 @@ export function DiagnosticWizard() {
             />
           );
         }
-        return <RoutineTutorial />;
+        return <ResultsPageEducation />;
       
       default:
         return <StepIntro onStart={handleNext} />;
@@ -329,19 +333,19 @@ export function DiagnosticWizard() {
   };
 
   // Détermine si on doit afficher le header de navigation
-  const showHeader = currentStep !== 'intro' && currentStep !== 'results';
-  const showProgress = currentStep !== 'intro' && currentStep !== 'results' && !isCalculating;
+  const showHeader = !['intro', 'results'].includes(currentStep);
+  const showProgress = !['intro', 'results'].includes(currentStep) && !isCalculating;
 
   // Calculer le numéro de paramètre actuel
   const getStepNumber = () => {
-    const stepOrder = ['texture', 'scalp', 'porosity', 'concerns'];
+    const stepOrder = ['texture', 'scalp', 'porosity', 'concerns', 'freetext'];
     return stepOrder.indexOf(currentStep) + 1;
   };
 
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   // Vérifier si on peut revenir en arrière
-  const canGoBack = currentStep !== 'intro' && currentStep !== 'results';
+  const canGoBack = !['intro', 'results'].includes(currentStep);
 
   return (
     <div className="min-h-[calc(100vh-8rem)] flex flex-col bg-white">

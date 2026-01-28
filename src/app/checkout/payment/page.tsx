@@ -15,7 +15,7 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Loader2, Lock, AlertCircle, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Loader2, Lock, AlertCircle } from 'lucide-react';
 import { MobileShell } from '@/components/layout/MobileShell';
 import { supabase } from '@/lib/supabase';
 import { useCartStore } from '@/store/cartStore';
@@ -144,8 +144,6 @@ function PaymentPageContent() {
   const clientSecret = searchParams.get('secret');
   const orderId = searchParams.get('orderId');
   
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
-
   // Si pas de secret, rediriger
   useEffect(() => {
     if (!clientSecret || !orderId) {
@@ -155,79 +153,13 @@ function PaymentPageContent() {
 
   const handleSuccess = () => {
     clearCart();
-    setPaymentSuccess(true);
+    // Redirect to success page with order ID
+    router.push(`/checkout/success?orderId=${orderId}`);
   };
 
   const handleError = (message: string) => {
     console.error('Erreur paiement:', message);
   };
-
-  // Écran de succès
-  if (paymentSuccess) {
-    return (
-      <MobileShell showHeader={false} showBottomNav={false}>
-        <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-            className="w-20 h-20 bg-success-100 rounded-full flex items-center justify-center mb-6"
-          >
-            <CheckCircle className="w-10 h-10 text-success-700" />
-          </motion.div>
-          
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="font-mono font-bold text-xl uppercase tracking-wider text-science-900 mb-2"
-          >
-            PAIEMENT ACCEPTÉ !
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="font-sans text-sm text-text-secondary mb-6"
-          >
-            Votre commande a été confirmée. Nous vous contacterons bientôt.
-          </motion.p>
-          
-          {orderId && (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="font-mono text-xs text-text-muted mb-8"
-            >
-              Commande #{orderId.slice(0, 8).toUpperCase()}
-            </motion.p>
-          )}
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="space-y-3 w-full max-w-xs"
-          >
-            <button 
-              onClick={() => router.push('/profil')}
-              className="btn-primary w-full py-3"
-            >
-              VOIR MES COMMANDES
-            </button>
-            <button 
-              onClick={() => router.push('/')}
-              className="btn-secondary w-full py-3"
-            >
-              RETOUR À L'ACCUEIL
-            </button>
-          </motion.div>
-        </div>
-      </MobileShell>
-    );
-  }
 
   if (!clientSecret || !orderId) {
     return (

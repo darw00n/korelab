@@ -5,10 +5,12 @@
 // Test de porosité avec style clinique
 // ============================================
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { HelpCircle } from 'lucide-react';
 import { useDiagnosticStore } from '@/store/diagnosticStore';
 import { useTranslation } from '@/lib/i18n/context';
+import { PorosityHelp } from '../PorosityHelp';
 import type { HairPorosity } from '@/types/database.types';
 
 interface StepPorosityProps {
@@ -20,6 +22,7 @@ export function StepPorosity({ onNext, porosities }: StepPorosityProps) {
   const { answers, setPorosity } = useDiagnosticStore();
   const { t } = useTranslation();
   const selectedId = answers.porosityId;
+  const [showHelp, setShowHelp] = useState(false);
 
   const handleSelect = (id: string) => {
     setPorosity(id);
@@ -37,15 +40,29 @@ export function StepPorosity({ onNext, porosities }: StepPorosityProps) {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-6"
       >
         <h2 className="font-mono text-2xl font-bold uppercase tracking-wider text-science-900 mb-2">
           Ta capacité à absorber l'eau
         </h2>
-        <p className="font-sans text-sm text-text-secondary">
+        <p className="font-sans text-sm text-text-secondary mb-3">
           {t('diagnostic.porosity.subtitle')}
         </p>
+        
+        {/* Help button */}
+        <button
+          onClick={() => setShowHelp(true)}
+          className="flex items-center gap-2 text-accent-600 hover:text-accent-700 transition-colors"
+        >
+          <HelpCircle className="w-4 h-4" />
+          <span className="font-mono text-xs uppercase tracking-wider font-bold">
+            Comment savoir ?
+          </span>
+        </button>
       </motion.div>
+
+      {/* Porosity Help Modal */}
+      <PorosityHelp isOpen={showHelp} onClose={() => setShowHelp(false)} />
 
       {/* Liste verticale des réponses */}
       <div className="flex-1 space-y-3">

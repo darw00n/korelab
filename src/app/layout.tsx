@@ -3,6 +3,7 @@ import { Inter, Space_Mono } from 'next/font/google';
 import './globals.css';
 import { I18nProvider } from '@/lib/i18n/context';
 import { AuthProvider } from '@/components/providers/AuthProvider';
+import { CookieConsent } from '@/components/CookieConsent';
 
 // ===================
 // FONTS
@@ -61,6 +62,7 @@ export default function RootLayout({
         <AuthProvider>
           <I18nProvider>
             {children}
+            <CookieConsent />
           </I18nProvider>
         </AuthProvider>
       </body>

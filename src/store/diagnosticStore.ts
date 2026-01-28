@@ -49,6 +49,8 @@ interface DiagnosticActions {
   setPorosity: (porosityId: string) => void;
   toggleConcern: (concernId: string) => void;
   setConcerns: (concernIds: string[]) => void;
+  setUserProblemDescription: (description: string) => void;
+  setUserDesiredSolution: (solution: string) => void;
   
   // Résultats
   setResults: (results: HairRoutineRecommendation) => void;
@@ -73,7 +75,8 @@ const STEP_ORDER: DiagnosticStep[] = [
   'scalp',
   'porosity',
   'concerns',
-  'results'  // Loading est géré dans results
+  'freetext',  // New step for free text input
+  'results'    // Loading est géré dans results
 ];
 
 // ===================
@@ -162,6 +165,16 @@ export const useDiagnosticStore = create<DiagnosticStore>((set, get) => ({
       answers: { ...state.answers, concernIds }
     })),
 
+  setUserProblemDescription: (description) =>
+    set((state) => ({
+      answers: { ...state.answers, userProblemDescription: description }
+    })),
+
+  setUserDesiredSolution: (solution) =>
+    set((state) => ({
+      answers: { ...state.answers, userDesiredSolution: solution }
+    })),
+
   // ─────────────────────────────────────────
   // RÉSULTATS
   // ─────────────────────────────────────────
@@ -213,6 +226,8 @@ export const selectCanProceed = (state: DiagnosticStore): boolean => {
       return !!answers.porosityId;
     case 'concerns':
       return (answers.concernIds?.length || 0) > 0;
+    case 'freetext':
+      return true; // Optional step, always can proceed
     case 'results':
       return false; // Fin du wizard
     default:
