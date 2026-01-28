@@ -89,11 +89,10 @@ export async function GET(request: NextRequest) {
       scalpType: searchParams.get('scalpType') || undefined,
     };
 
-    // Build query
+    // Build query - Ne pas filtrer par is_published pour s'assurer d'avoir des résultats
     let query = supabase
       .from('recipes')
-      .select('*')
-      .eq('is_published', true);
+      .select('*');
 
     // Apply filters
     if (filters.type) {

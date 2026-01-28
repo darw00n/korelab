@@ -5,22 +5,53 @@
 // Landing page avec style clinique et technique
 // ============================================
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   Microscope,
   ArrowRight,
   Activity,
-  TrendingUp
+  TrendingUp,
+  Beaker,
+  Clock,
+  Star,
+  ShoppingBag,
+  Sparkles,
+  ChevronRight
 } from 'lucide-react';
 import { MobileShell } from '@/components/layout/MobileShell';
+import { Footer } from '@/components/layout/Footer';
+import { getProductImageUrl } from '@/lib/product-images';
+import type { Recipe } from '@/types/database.types';
 
 // ===================
 // PAGE PRINCIPALE
 // ===================
 
 export default function HomePage() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Fetch featured recipes
+    fetch('/api/recipes?featured=true')
+      .then(res => res.json())
+      .then(data => setRecipes(data.recipes?.slice(0, 6) || []))
+      .catch(console.error);
+
+    // Fetch featured products from Supabase
+    import('@/lib/supabase').then(({ supabase }) => {
+      supabase
+        .from('products')
+        .select('*')
+        .eq('is_available', true)
+        .limit(8)
+        .then(({ data }) => setProducts(data || []));
+    });
+  }, []);
+
   return (
     <MobileShell showHeader={true} showBottomNav={true}>
       <div className="min-h-screen bg-white">
@@ -34,6 +65,15 @@ export default function HomePage() {
           {/* Preuves (Grid) */}
           <ProofsSection />
         </div>
+
+        {/* Carousel Recettes DIY */}
+        <RecipesCarousel recipes={recipes} />
+
+        {/* Carousel Produits */}
+        <ProductsCarousel products={products} />
+
+        {/* Footer */}
+        <Footer />
       </div>
     </MobileShell>
   );
@@ -171,5 +211,154 @@ function ProofsSection() {
         </div>
       ))}
     </motion.section>
+  );
+}
+
+// ===================
+// RECIPES CAROUSEL
+// ===================
+
+function RecipesCarousel({ recipes }: { recipes: Recipe[] }) {
+  if (recipes.length === 0) return null;
+
+  return (
+    <section className="py-8 bg-slate-50">
+      <div className="px-4 mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Beaker className="w-5 h-5 text-green-600" />
+            <h2 className="font-mono font-bold text-lg uppercase tracking-wider text-science-900">
+              Recettes DIY
+            </h2>
+          </div>
+          <Link 
+            href="/recettes" 
+            className="flex items-center gap-1 text-sm text-accent-600 font-mono"
+          >
+            Voir tout <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <p className="text-sm text-text-secondary mt-1">
+          Crée tes propres soins naturels
+        </p>
+      </div>
+
+      {/* Horizontal Scroll */}
+      <div className="flex gap-3 overflow-x-auto px-4 pb-4 scrollbar-hide">
+        {recipes.map((recipe) => (
+          <Link 
+            key={recipe.id} 
+            href={`/recettes/${recipe.slug}`}
+            className="flex-shrink-0 w-64"
+          >
+            <div className="bg-white rounded-xl p-4 border border-slate-200 hover:border-accent-300 transition-colors h-full">
+              <div 
+                className="w-12 h-12 rounded-lg flex items-center justify-center mb-3"
+                style={{ backgroundColor: `${recipe.color_hex || '#22c55e'}20` }}
+              >
+                <Beaker className="w-6 h-6" style={{ color: recipe.color_hex || '#22c55e' }} />
+              </div>
+              <h3 className="font-mono font-bold text-sm text-science-900 mb-1 line-clamp-2">
+                {recipe.name}
+              </h3>
+              <p className="text-xs text-text-muted line-clamp-2 mb-3">
+                {recipe.short_description}
+              </p>
+              <div className="flex items-center gap-3 text-xs text-text-muted">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3 h-3" /> {recipe.prep_time_minutes} min
+                </span>
+                <span className="flex items-center gap-1">
+                  {[...Array(3)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`w-3 h-3 ${
+                        i < (recipe.difficulty === 'debutant' ? 1 : recipe.difficulty === 'intermediaire' ? 2 : 3) 
+                          ? 'text-amber-500 fill-amber-500' 
+                          : 'text-slate-200'
+                      }`} 
+                    />
+                  ))}
+                </span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ===================
+// PRODUCTS CAROUSEL
+// ===================
+
+function ProductsCarousel({ products }: { products: any[] }) {
+  if (products.length === 0) return null;
+
+  return (
+    <section className="py-8">
+      <div className="px-4 mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-amber-600" />
+            <h2 className="font-mono font-bold text-lg uppercase tracking-wider text-science-900">
+              Nos Produits
+            </h2>
+          </div>
+          <Link 
+            href="/shop" 
+            className="flex items-center gap-1 text-sm text-accent-600 font-mono"
+          >
+            Boutique <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <p className="text-sm text-text-secondary mt-1">
+          Ingrédients 100% naturels du Maroc
+        </p>
+      </div>
+
+      {/* Horizontal Scroll */}
+      <div className="flex gap-3 overflow-x-auto px-4 pb-4 scrollbar-hide">
+        {products.map((product) => {
+          const imageUrl = getProductImageUrl(product);
+          
+          return (
+            <Link 
+              key={product.id} 
+              href={`/shop/${product.slug}`}
+              className="flex-shrink-0 w-40"
+            >
+              <div className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-accent-300 transition-colors">
+                {/* Image */}
+                <div className="aspect-square bg-slate-100 relative">
+                  {imageUrl ? (
+                    <Image 
+                      src={imageUrl} 
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ShoppingBag className="w-8 h-8 text-slate-300" />
+                    </div>
+                  )}
+                </div>
+                {/* Info */}
+                <div className="p-3">
+                  <h3 className="font-mono text-xs font-bold text-science-900 line-clamp-2 mb-1">
+                    {product.name}
+                  </h3>
+                  <p className="font-mono text-sm font-bold text-accent-600">
+                    {product.price} DH
+                  </p>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
   );
 }
